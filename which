@@ -1,0 +1,67 @@
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+[32mComposer[39m version [33m1.10.1[39m 2020-03-13 20:34:27
+
+[33mUsage:[39m
+  command [options] [arguments]
+
+[33mOptions:[39m
+  [32m-h, --help[39m                     Display this help message
+  [32m-q, --quiet[39m                    Do not output any message
+  [32m-V, --version[39m                  Display this application version
+  [32m    --ansi[39m                     Force ANSI output
+  [32m    --no-ansi[39m                  Disable ANSI output
+  [32m-n, --no-interaction[39m           Do not ask any interactive question
+  [32m    --profile[39m                  Display timing and memory usage information
+  [32m    --no-plugins[39m               Whether to disable plugins.
+  [32m-d, --working-dir=WORKING-DIR[39m  If specified, use the given directory as working directory.
+  [32m    --no-cache[39m                 Prevent use of the cache
+  [32m-v|vv|vvv, --verbose[39m           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+[33mAvailable commands:[39m
+  [32mabout[39m                Shows the short information about Composer.
+  [32marchive[39m              Creates an archive of this composer package.
+  [32mbrowse[39m               Opens the package's repository URL or homepage in your browser.
+  [32mcc[39m                   Clears composer's internal package cache.
+  [32mcheck-platform-reqs[39m  Check that platform requirements are satisfied.
+  [32mclear-cache[39m          Clears composer's internal package cache.
+  [32mclearcache[39m           Clears composer's internal package cache.
+  [32mconfig[39m               Sets config options.
+  [32mcreate-project[39m       Creates new project from a package into given directory.
+  [32mdepends[39m              Shows which packages cause the given package to be installed.
+  [32mdiagnose[39m             Diagnoses the system to identify common errors.
+  [32mdump-autoload[39m        Dumps the autoloader.
+  [32mdumpautoload[39m         Dumps the autoloader.
+  [32mexec[39m                 Executes a vendored binary/script.
+  [32mfund[39m                 Discover how to help fund the maintenance of your dependencies.
+  [32mglobal[39m               Allows running commands in the global composer dir ($COMPOSER_HOME).
+  [32mhelp[39m                 Displays help for a command
+  [32mhome[39m                 Opens the package's repository URL or homepage in your browser.
+  [32mi[39m                    Installs the project dependencies from the composer.lock file if present, or falls back on the composer.json.
+  [32minfo[39m                 Shows information about packages.
+  [32minit[39m                 Creates a basic composer.json file in current directory.
+  [32minstall[39m              Installs the project dependencies from the composer.lock file if present, or falls back on the composer.json.
+  [32mlicenses[39m             Shows information about licenses of dependencies.
+  [32mlist[39m                 Lists commands
+  [32moutdated[39m             Shows a list of installed packages that have updates available, including their latest version.
+  [32mprohibits[39m            Shows which packages prevent the given package from being installed.
+  [32mremove[39m               Removes a package from the require or require-dev.
+  [32mrequire[39m              Adds required packages to your composer.json and installs them.
+  [32mrun[39m                  Runs the scripts defined in composer.json.
+  [32mrun-script[39m           Runs the scripts defined in composer.json.
+  [32msearch[39m               Searches for packages.
+  [32mself-update[39m          Updates composer.phar to the latest version.
+  [32mselfupdate[39m           Updates composer.phar to the latest version.
+  [32mshow[39m                 Shows information about packages.
+  [32mstatus[39m               Shows a list of locally modified packages, for packages installed from source.
+  [32msuggests[39m             Shows package suggestions.
+  [32mu[39m                    Upgrades your dependencies to the latest version according to composer.json, and updates the composer.lock file.
+  [32mupdate[39m               Upgrades your dependencies to the latest version according to composer.json, and updates the composer.lock file.
+  [32mupgrade[39m              Upgrades your dependencies to the latest version according to composer.json, and updates the composer.lock file.
+  [32mvalidate[39m             Validates a composer.json and composer.lock.
+  [32mwhy[39m                  Shows which packages cause the given package to be installed.
+  [32mwhy-not[39m              Shows which packages prevent the given package from being installed.

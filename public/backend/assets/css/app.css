@@ -1,0 +1,330 @@
+/* Form Error */
+.has-error .input-group-addon {
+    color: inherit;
+    background-color: inherit;
+    border-color: transparent;
+}
+
+/* General */
+.table td {
+    white-space: nowrap;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.preview {
+    cursor: pointer;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+.dl-horizontal dt {
+    text-align: left;
+}
+
+/* Summernote */
+.note-editor {
+    margin-top: 15px;
+}
+
+.note-editor .modal-dialog {
+    margin-top: 100px;
+}
+
+.note-group-select-from-files {
+    display: none;
+}
+
+/* Material Admin List*/
+.gui-text {
+    padding: 8px 12px;
+}
+
+/* Nano Scroller */
+#content .nano:focus,
+#content .nano-content:focus {
+    outline: none;
+}
+
+#content .nano-pane {
+    z-index: 1;
+    width: 5px;
+    background: transparent;
+}
+
+#content .nano-slider {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#content section {
+    position: relative;
+    padding-top: 16px;
+    z-index: 1;
+    min-height: 100%;
+}
+
+/* Custom Gird Column */
+.col-xs-1-5,
+.col-sm-1-5,
+.col-md-1-5,
+.col-lg-1-5 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-1-5 {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-1-5 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-1-5 {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-1-5 {
+        width: 20%;
+        float: left;
+    }
+}
+
+/* Vue CSS */
+.searchbar {
+    opacity: 0;
+}
+
+.menubar-pin .searchbar, .menubar-visible .searchbar {
+    opacity: 1;
+    transition: 1s;
+}
+
+/* Header Dropdown */
+.header-nav-profile .dropdown > a {
+    /* min-width: 160px;
+    padding: 21px; */
+    position: relative;
+    min-height: 64px;
+    min-width: 210px;
+    padding: 12px;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+
+/*.header-nav-edit-profile .dropdown.open > a {*/
+/*padding: 15px 21px;*/
+/*}*/
+
+/* Affix */
+@media (min-width: 768px) {
+    .card-affix {
+        position: fixed;
+    }
+
+    .image-card-affix {
+        position: absolute;
+    }
+
+    .affix-4 {
+        width: 25%;
+    }
+}
+
+/*Pages Module Css*/
+
+/*.nav-pills {*/
+/*    line-height: 12px;*/
+/*    position: relative;*/
+/*    min-height: 45px;*/
+/*    border-radius: 2px 2px 0 0;*/
+/*    display: block !important;*/
+/*}*/
+
+.side-label {
+    width: 100%;
+    /*margin-top: 10px;*/
+    padding: 0px 30px;
+    margin-bottom: -20px;
+}
+
+.side-label .label-head {
+    float: left;
+}
+
+.side-label .label-head span {
+    font-weight: 500;
+    font-size: 14px;
+    vertical-align: center;
+}
+
+.side-label .label-card span {
+    font-weight: 400;
+    font-size: 16px;
+    vertical-align: center;
+    margin-left: -31px;
+    float: left;
+
+}
+
+.side-label .label-body {
+    float: right;
+    vertical-align: center;
+}
+
+.side-label .label-body-card {
+    float: right;
+    vertical-align: center;
+}
+
+.side-label .label-body .order {
+    width: 100px;
+}
+
+.side-label .label-body.no-float {
+    float: none;
+}
+
+.page-bar {
+    margin-top: 20px;
+}
+
+/* form Validation */
+.invalid-feedback p {
+    color: #f44336;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 400;
+
+}
+
+
+/*-------------------------------------------------*/
+/* =  Custom Part
+/*-------------------------------------------------*/
+.uk-badge-success {
+    background: #7cb342;
+}
+
+.uk-badge-danger {
+    background: #e53935;
+}
+
+.uk-badge {
+    padding: 2px 6px;
+    border: none;
+    border-radius: 2px;
+    text-shadow: none;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.uk-badge {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: none;
+}
+
+.switchery {
+    background-color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    vertical-align: middle;
+    width: 38px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    background-clip: content-box;
+    -webkit-transition: background-color 800ms ease-out !important;
+    transition: background-color 800ms ease-out !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    margin: 6px 2px;
+}
+
+.switchery > small {
+    background: #fff;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+    height: 20px;
+    position: absolute;
+    top: 0;
+    width: 20px;
+    margin-top: -3px;
+    -webkit-transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), left 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), left 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.switchery-small {
+    width: 32px;
+    height: 9px;
+    margin: 4px 1px;
+}
+
+.switchery-small > small {
+    height: 16px;
+    width: 16px;
+    top: -1px;
+}
+
+.switchery-large {
+    width: 48px;
+}
+
+.switchery-large > small {
+    height: 24px;
+    width: 24px;
+    top: -3px;
+}
+
+.affix {
+    top: 70px;
+    z-index: 9999 !important;
+}
+
+.form-sidebar {
+    width: 292.5px !important;
+}
+
+.md-user-image {
+    width: 30px;
+    border-radius: 50%;
+}
+
+section.section-account .img-backdrop, section.section-account .spacer {
+    height: 220px !important;
+}
+
+.section-account .img-backdrop {
+    top: 20px !important;
+    background-size: contain !important;
+}
+
+.dynamicAddBtn{
+    text-align: center;
+}
