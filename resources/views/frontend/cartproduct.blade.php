@@ -1,7 +1,8 @@
-<input type="hidden" class="totalcounting" value="{{ $carts->sum('quantity') }}">
+<input type="hidden" class="totalcounting" value="@if((isset($carts))) {{ $carts->sum('quantity') }} @endif">
 
 <!--mini cart-->
   <div class="mini_cart">
+    @if((isset($carts)))
     @foreach($carts as $cart)
         <div class="cart_item">
             <div class="cart_img">
@@ -22,6 +23,7 @@
         </div>  
        
     @endforeach
+    @endif
     <div class="mini_cart_table">
         <div class="cart_total">
             <span>Subtotal:</span>

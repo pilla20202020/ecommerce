@@ -19,8 +19,11 @@ class CustomerController extends Controller
         $categories = Category::get();
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
-        
-        return view('frontend.auth.register',compact('categories','subcategories','products'));
+        $customer_id = Auth::guard('customer')->id();
+
+        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+         
+        return view('frontend.auth.register',compact('carts','categories','subcategories','products'));
     }
 
     public function viewCustomerLogin() {
