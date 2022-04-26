@@ -2482,7 +2482,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   background: #e7e7e7;
   color: #333333;
   top: -2px;
-  right: 62px;
+  right: 12px;
 }
 .mini_cart_three .cart_info a:hover {
   color: #3E4095;
@@ -4569,24 +4569,77 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .btn-product {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex: 1;
-	padding: 1.14em 0;
-	background-color: #26c;
-	color: #fff;
-	font-family: Poppins, sans-serif;
-	font-size: 1.4rem;
-	font-weight: 700;
-	line-height: 1.2;
-	letter-spacing: -0.025em;
-	text-transform: uppercase;
-	transition: opacity 0.3s
+	width: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px 25px;
+  color: #ffffff;
+  background: #333333;
+  border-color: #333333;
+  margin-top: 10px;
 }
 
-.btn-product:hover {
+.btn-product a:hover {
 	color: #fff
+}
+
+.increase{
+  width: 300px;
+}
+.increase label {
+  margin-right: 10px;
+}
+
+.increase .value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  text-align: center;
+  vertical-align: middle;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.increase .value-button:hover {
+  cursor: pointer;
+}
+
+.increase #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+.increase #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+.increase #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+.increase input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+.increase input[type=number]::-webkit-inner-spin-button,
+.increase input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .cart-dropdown .cart-label {
@@ -7965,7 +8018,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .product_meta {
-  margin-bottom: 24px;
+  margin-bottom: 17px;
 }
 @media only screen and (max-width: 767px) {
   .product_meta {

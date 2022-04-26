@@ -139,19 +139,25 @@
                                             {{-- {{-- <form action="{{ route('add-to-cart') }}" method="POST" style="width:100%"> --}}
                                                 
                                              <input type="hidden" name="id" class="id" value="{{ $products->id }}">
-                                                 <label>QTY:</label>
+                                                <div class="increase">
+                                                    <label>QTY:</label>    
+                                                    <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+                                                    <input type="number" id="number" value="1" name="quantity" class="quantityproduct"/>
+                                                    <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+                                                 </div>
+
                                                  <div class="product-form-group">
-                                                     <div class="input-group">
+                                                     {{-- <div class="input-group">
                                                          <button type="button" class="quantity-minus d-icon-minus"></button>
                                                          <input name="quantity" class="quantityproduct form-control" type="number" min="1" max="1000000" value="1">
                                                          <button type="button" class="quantity-plus d-icon-plus"></button>
-                                                     </div>
+                                                     </div> --}}
                                                     
                                                      <div class="btn-product btn-cart">
                                                              @if(!empty(Auth::guard('customer')->user()))
                                                                  <a href="javascript:;" class="btn-addtocart" data-price = {{$products->price}} data-value="{{ $products->slug }}" data-id="{{$products->id}}"><i class="d-icon-bag"></i>Add To Cart</a>
                                                              @else
-                                                             <a href="{{url('/login')}}" title="Add to Cart"><i class="d-icon-bag"></i> Add to Cart</a>
+                                                             <a href="{{url('/login')}}" title="Add to Cart" class="add_to_cart"><i class="d-icon-bag"></i> Add to Cart</a>
                                                              @endif
                                                     </div>
                                                     
@@ -218,6 +224,7 @@
 @endsection
 
 @push('scripts')
+
 <script>
     $(document).on('click','.btn-addtocart',function(e){
        e.preventDefault();
@@ -252,5 +259,20 @@
            }
        })
    });
+
+   function increaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 1 : value;
+        value++;
+        document.getElementById('number').value = value;
+    }
+
+    function decreaseValue() {
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 1 : value;
+        value < 2 ? value = 2 : '';
+        value--;
+        document.getElementById('number').value = value;
+    }
 </script>
 @endpush

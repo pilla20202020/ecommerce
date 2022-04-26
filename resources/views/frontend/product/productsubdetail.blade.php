@@ -129,6 +129,8 @@
                                         <div class="product_desc">
                                             <p>{!! $products->description !!}</p>
                                         </div>
+
+                                       
                                         {{-- <div class="product_variant color">
                                             <h3>Available Options</h3>
                                             <label>color</label>

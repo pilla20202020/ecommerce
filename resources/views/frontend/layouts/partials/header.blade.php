@@ -12,6 +12,7 @@
                                 <li><a href="{{setting('facebook')}}"><i class="ion-social-facebook"></i></a></li>
                                 <li><a href="#"><i class="ion-social-instagram"></i></a></li>
                             </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -47,10 +48,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="header_middle_right">
                         <div class="header_contact">
-                            <div class="header-left">
-                                <p class="welcome-msg">
-                                Hello !! {{ Auth::guard('customer')->user()->name ?? ' Guest. Please Sign In.' }}</p>
-                            </div>
+                
                             @if (Auth::guard('customer')->user())
                                
                                 <div class="contact_static">
@@ -75,7 +73,7 @@
                                 </div> 
                             @endif
                             <div class="mini_cart_wrapper mini_cart_three">
-
+                                
                                 <span class="cart-price">Rs {{ number_format($carts->sum('amount')) }}</span>
                                  <a href="javascript:void(0)">
                                    

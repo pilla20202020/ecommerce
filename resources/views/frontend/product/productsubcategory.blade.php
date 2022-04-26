@@ -76,12 +76,15 @@
                                             <a class="primary_img" href="{{ route('products.detail', $productsdata->slug) }}"><img src="{{asset($productsdata->image_path)}}" alt=""></a>
                                            
                                            
-                                            {{-- <div class="action_links">
+                                            <div class="action_links">
                                                 <ul>
-                                                   
-                                                    <li ><a href="#" class="view-quickview" data-product_id="{{$productsdata->id}}" id="quickviewproduct" data-toggle="modal" data-target="#productquickview" title="Quick View"><i class="ion-eye"></i></a></li>
+                                                    @if(!empty(Auth::guard('customer')->user()))
+                                                        <li class="add_to_cart"><a href="javascript:;" class="addtocart" data-id="{{$productsdata->id}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                    @else
+                                                        <li class="add_to_cart"><a href="{{route('user-login')}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                    @endif
                                                 </ul>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                         <div class="product_content">
                                             <div class="product_name">
@@ -121,3 +124,42 @@
     <!--shop  area end-->
 
 @endsection
+
+@push('scripts')
+<script>
+    $(document).on('click','.addtocart',function(e){
+       e.preventDefault();
+       var qty = 1;
+       var product_id = Number($(this).data('id'));
+       var id = $('.id').val();
+       console.log(qty);
+       $.ajax({
+           url: "{{route('add-to-cart')}}",
+           method: 'post',
+           data: {
+               _token: '{{csrf_token()}}',
+               quantity: qty,
+               product_id: product_id,
+               id:id,
+               // price: $('.totalpricing').val(),
+           },
+           success:function(data){
+               $('.listitems').html(data);
+               var totalprice = $('.totalpricing').html();
+               $('.cart-price').html(totalprice);
+
+               var totalcount = $('.totalcounting').val();
+               $('.cart-count').html(totalcount)
+              
+               Swal.fire(
+                        'Added to cart',
+                        '',
+                        'success'
+                    )
+               
+           }
+       })
+   });
+</script>
+
+@endpush
