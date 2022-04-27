@@ -9,6 +9,7 @@ use App\Models\Category\Category;
 use App\Models\SubCategory\SubCategory;
 use App\Models\Product\Product;
 use App\Models\Customer\Customer;
+use App\Models\Order\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -42,6 +43,8 @@ class CustomerController extends Controller
             'email' => ['required', 'string', 'email',],
             'password' => ['required', Password::defaults()],
             'phone' => ['required','regex:/[0-9]{10}/'],
+            'address' => ['required', 'string'],
+
         ]);
         
         $customer = new Customer();
@@ -50,6 +53,7 @@ class CustomerController extends Controller
         $customer->password = Hash::make($request['password']);
         $customer->email = $request['email'];
         $customer->phone = $request['phone'];
+        $customer->address = $request['address'];
         $customer->save();
         alert()->success('You have Successfully Registered');
         return back();
@@ -82,5 +86,19 @@ class CustomerController extends Controller
         // $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function myAccount() {
+        $customer_id = Auth::guard('customer')->id();
+        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+        $categories = Category::get();
+        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
+        $products = Product::where('is_featured', 1)->get();
+
+        $orders = Order::where('customer_id', Auth::guard('customer')->id())->orderBy('id', 'DESC')->get();
+
+        return view('frontend.my-account',compact('orders','carts','categories','subcategories','products'));
+
+
     }
 }

@@ -9325,11 +9325,14 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   cursor: pointer;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  margin-left: 20px;
   border-radius: 20px;
 }
 .account_form button:hover {
   background: #333333;
+}
+
+.account_form h2{
+  text-align: center;
 }
 
 .login_submit label input[type=checkbox] {

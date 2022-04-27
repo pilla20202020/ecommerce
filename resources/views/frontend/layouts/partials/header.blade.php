@@ -52,7 +52,7 @@
                             @if (Auth::guard('customer')->user())
                                
                                 <div class="contact_static">
-                                    <a href=""><i class="ion-person"></i>My Account </a>
+                                    <a href="{{ route('my-account') }}"><i class="ion-person"></i>My Account </a>
                                 </div>
                                 <div class="contact_static">
                                     <a href="{{ route('customer-logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

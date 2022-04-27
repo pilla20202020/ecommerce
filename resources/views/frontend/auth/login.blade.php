@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         @endif
-                <div class="account_form register">
+                <div class="account_form">
                     <h2>Login</h2>
                     <form action="{{ route('customer-login') }}" method="POST">
                         @csrf
@@ -62,7 +62,9 @@
                                 name="password" placeholder="Password *" required />
                         </div>
                       
-                        <button class="btn btn-dark btn-block btn-rounded"
+                        <button class="btn btn-dark btn-rounded" style="position: relative;
+                        left: 50%;
+                        transform: translateX(-50%)"
                             type="submit">Login</button>
                     </form>
                 </div>    

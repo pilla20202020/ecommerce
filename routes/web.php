@@ -188,6 +188,7 @@ Route::post('/update-cart', 'Frontend\CartController@update')->name('update-cart
 Route::get('/checkout', 'Frontend\CartController@checkout')->name('checkout');
 Route::post('/order', 'Frontend\OrderController@store')->name('order');
 Route::get('/order-details/{order_number}', 'Frontend\OrderController@orderDetails')->name('order-details');
+Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-account');
 
 
 

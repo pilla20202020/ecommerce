@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         @endif
-                <div class="account_form register">
+                <div class="account_form">
                     <h2>Register</h2>
                     <form action="{{ route('customer-register') }}" method="POST" >
                         @csrf
@@ -68,8 +68,14 @@
                         <div class="form-group">
                             <input type="text" class="form-control" id="register-phone" name="phone" placeholder="Phone *" value="{{ old('phone') }}" required="">
                         </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="register-address" name="address" placeholder="Address *" value="{{ old('address') }}" required="">
+                        </div>
                        
-                        <button class="btn btn-dark btn-block btn-rounded"
+                        <button class="btn btn-dark btn-rounded" style="position: relative;
+                        left: 50%;
+                        transform: translateX(-50%)"
                             type="submit">Register</button>
                     </form>
                 </div>    
