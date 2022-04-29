@@ -51,7 +51,7 @@
                                             <tr>
                                                 <th>S.N</th>
                                                 <th>Order Number</th>
-                                                <th>Date</th>
+                                                <th>Date of Order</th>
                                                 <th>Status</th>
                                                 <th>Total</th>
                                                 <th>Actions</th>	 	 	 	
@@ -65,7 +65,9 @@
                                                     <td>{{$item->created_at}}</td>
                                                     <td><span class="success">{{$item->payment_status}}</span></td>
                                                     <td>Rs.{{$item->total_amount}}</td>
-                                                    <td><a href="{{route('view-cart')}}" class="view">view</a></td>
+                                                    <td><button type="button" class="view-items" data-toggle="modal" data-target="#viewItems" data-id="{{$item->id}}">
+                                                        View
+                                                    </button></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -78,12 +80,12 @@
                                 <h4 class="billing-address">Billing address</h4>
                                 <a href="#" class="view">Edit</a>
                                 
-                                {{-- <p><strong>{{Auth::guard('customer')->user()->address}}</strong></p> --}}
+                                <p><strong>{{Auth::guard('customer')->user()->address}}</strong></p>
                                 <address>
                                     House #15<br>
                                 </address>
                             </div>
-                            <div class="tab-pane fade" id="account-details">
+                            {{-- <div class="tab-pane fade" id="account-details">
                                 <h3>Account details </h3>
                                 <div class="login">
                                     <div class="login_form_container">
@@ -124,7 +126,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -132,6 +134,70 @@
         </div>        	
     </section>			
     <!-- my account end   --> 
+<!-- Modal -->
+<div class="modal fade" id="viewItems" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLongTitle">List of Order Items</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="order_body">
 
+                </tbody>
+            </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 @endsection
+
+@push('scripts')
+  
+<script>
+    $(document).on('click','.view-items',function(e){
+       e.preventDefault();
+       var order_id = Number($(this).data('id'));
+       $.ajax({
+           url: "{{route('view-order-items')}}",
+           method: 'get',
+           data: {
+               _token: '{{csrf_token()}}',
+               order_id: order_id,
+           },
+           success:function(response){
+                if(typeof(response) != 'object'){
+                    response = JSON.parse(response)
+                }
+                if(response.status){
+                    var tbody_html = "";
+                    $.each(response.data, function(key, order_items){
+                        tbody_html += "<tr>";
+                        tbody_html += "<td>"+order_items.name+"</td>";
+                        tbody_html += "<td>"+order_items.rate+"</td>";
+                        tbody_html += "<td>"+order_items.quantity+"</td>";
+                        tbody_html += "<td>"+order_items.amount+"</td>";
+                        tbody_html += "</tr>";
+                    });
+                    $('#order_body').html(tbody_html);
+                    $('#viewItems').modal('show');
+                }
+            }
+       })
+   });
+</script>
+@endpush

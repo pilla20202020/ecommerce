@@ -189,6 +189,9 @@ Route::get('/checkout', 'Frontend\CartController@checkout')->name('checkout');
 Route::post('/order', 'Frontend\OrderController@store')->name('order');
 Route::get('/order-details/{order_number}', 'Frontend\OrderController@orderDetails')->name('order-details');
 Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-account');
+Route::get('/view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
+Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
+Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
 
 
 

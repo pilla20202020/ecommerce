@@ -103,4 +103,33 @@ class OrderController extends Controller
 
         return view('frontend.order-details',compact('order_details','carts','categories','subcategories','products'));
     }
+
+    public function viewOrder()
+    {
+        $orders = Order::all();
+        return view('backend.order.index',compact('orders'));
+
+    }
+
+    public function updatePaymentStatus(Request $request){
+        foreach($request->order_id as $order){
+            $list= Order::where('id',$order)->first();
+            $list->payment_status = $request->paymentstatus;
+            $list->save();
+       }
+       return response()->json([
+           'status' => true,
+           'message' => "Payment Status Updated"
+       ]);
+    }
+
+    public function viewOrderItems(Request $request)
+    {
+        $order_items = OrderDetail::where('order_id',$request->order_id)->get();
+        return response()->json([
+            'status' => true,
+            'message' => 'success',
+            'data' => $order_items
+        ]);
+    }
 }

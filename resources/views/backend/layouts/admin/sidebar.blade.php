@@ -78,9 +78,9 @@
 						</li> 
 
 						<li class="gui-folder">
-							<a href="{{ route('service.index') }}" >
-								<div class="gui-icon"><i class="md md-settings"></i></div>
-								<span class="title">Services</span>
+							<a href="{{ route('view-order') }}" >
+								<div class="gui-icon"><i class="fa fa-shopping-cart"></i></div>
+								<span class="title">Orders</span>
 							</a>
 						</li>
 
