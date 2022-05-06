@@ -101,4 +101,31 @@ class CustomerController extends Controller
 
 
     }
+
+    public function editAddress($id) {
+        $customer_id = Auth::guard('customer')->id();
+        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+        $categories = Category::get();
+        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
+        $products = Product::where('is_featured', 1)->get();
+        $orders = Order::where('customer_id', Auth::guard('customer')->id())->orderBy('id', 'DESC')->get();
+
+
+        return view('frontend.update-address',compact('orders','carts','categories','subcategories','products'));
+    }
+
+    public function updateAddress(Request $request){
+        $customer_id = Auth::guard('customer')->id();
+        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+        $categories = Category::get();
+        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
+        $products = Product::where('is_featured', 1)->get();
+        $orders = Order::where('customer_id', Auth::guard('customer')->id())->orderBy('id', 'DESC')->get();
+        
+        $customer = Customer::findOrFail($customer_id);
+        $customer->address = $request->address;
+        $customer->save();
+        return view('frontend.my-account',compact('orders','carts','categories','subcategories','products'));
+
+    }
 }

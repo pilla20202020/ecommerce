@@ -192,7 +192,8 @@ Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-acc
 Route::get('/view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
 Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
 Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
-
+Route::get('/address/edit/{id}',  'Frontend\CustomerController@editAddress')->name('edit-address');
+Route::post('/address/save',  'Frontend\CustomerController@updateAddress')->name('update-address');
 
 
 

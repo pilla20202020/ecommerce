@@ -84,10 +84,20 @@
                                <p>The following addresses will be used on the checkout page by default.</p>
                                 <h4 class="billing-address">Billing address</h4>
                                 
-                                <p><strong>{{Auth::guard('customer')->user()->address}}</strong></p>
-                                
-                                <a href="{{ route('edit-address', Auth::guard('customer')->user()->id) }}" class="btn btn-link btn-secondary btn-underline">Edit <i
-                                    class="far fa-edit"></i></a>
+                                <form action="{{route('update-address')}}" class="form" method="POST">
+                                    @csrf
+                                   
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Address*</label>
+                                            <input type="text" class="form-control mb-4" name="address" required="" value="{{Auth::guard('customer')->user()->address}}">    
+                                        </div>
+                                        <div class="col-sm-6">
+                                        </div>
+                                    </div>
+                    
+                                    <button type="submit" class="btn btn-primary">Save Address</button>
+                                </form>
                                     
                             </div>
                             <div class="tab-pane fade" id="account-details">
