@@ -11,13 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
-    
-    <!-- CSS 
+
+    <!-- CSS
     ========================= -->
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
-    
+
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }} ">
 
@@ -34,7 +34,7 @@
 
     @include('frontend.layouts.partials.footer')
 
-   
+
 
 
 <!-- JS
@@ -72,6 +72,11 @@
                 }
             }
         });
+    });
+
+
+    $(document).ready(function() {
+        var getcurrentactive = $('.getcurrentactive').closest('.mega_items').children().addClass('active');
     });
 </script>
 

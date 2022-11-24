@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('setting', 'Backend\SettingController@index')->name('setting.index');
     Route::put('setting/update', 'Backend\SettingController@update')->name('setting.update');
 
-   
+
     Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard'], function () {
         Route::get('', 'Backend\DashboardController@index')->name('index');
     });

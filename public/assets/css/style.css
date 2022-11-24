@@ -7,14 +7,14 @@
     01. header css here
     02. slider area css here
     03. product section css here
-    04. banner section css here 
+    04. banner section css here
     05. blog area css here
     06. newsletter area css here
     07. footer area css here
     08. shop page css here
-    09. error page css heer 
+    09. error page css heer
     10. about page css here
-    11. blog page css here 
+    11. blog page css here
     12. blog details css here
     13. cart page css here
     14. checkout page css here
@@ -147,7 +147,7 @@ ul {
   padding: 0;
 }
 
-/*-- 
+/*--
     - Common Classes
 -----------------------------------------*/
 .fix {
@@ -213,7 +213,7 @@ ul {
   border-color: #3E4095 transparent transparent transparent;
 }
 
-/*-- 
+/*--
     - Background color
 -----------------------------------------*/
 .bg-white {
@@ -259,10 +259,10 @@ ul {
   height: 100%;
 }
 
-/*-- 
+/*--
     - color
 -----------------------------------------*/
-/*-- 
+/*--
     - Input Placeholder
 -----------------------------------------*/
 input:-moz-placeholder, textarea:-moz-placeholder {
@@ -285,8 +285,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
-/*-- 
-    Scroll Up 
+/*--
+    Scroll Up
 -----------------------------------------*/
 #scrollUp {
   background: #3E4095 none repeat scroll 0 0;
@@ -314,7 +314,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   animation-iteration-count: infinite;
 }
 
-/*-- 
+/*--
     - Main Wrapper
 -----------------------------------------*/
 .main-wrapper.header-transparent {
@@ -322,7 +322,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin: 0 !important;
 }
 
-/*-- 
+/*--
     - Section Padding
 -------------------------------------*/
 .section-ptb {
@@ -1185,6 +1185,10 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   position: static;
 }
 
+.main_menu nav > ul > li > a.active {
+    color: blue!important
+}
+
 .mega_menu_inner {
   display: flex;
   justify-content: space-between;
@@ -1203,6 +1207,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 .mega_menu_inner > li > a:hover {
   color: #83b53b;
+}
+.mega_menu_inner > li > a.active {
+    color: blue
 }
 .mega_menu_inner > li ul li {
   display: block;
