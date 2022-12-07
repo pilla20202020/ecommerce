@@ -28,9 +28,9 @@ class CartController extends Controller
             'product_id' => 'required',
             'quantity' => ['required', 'integer', 'gt:0']
         ]);
-        
+
         $product=  Product::where('id', $request->product_id)->first();
-        
+
         if(!$product){
             return response()->json([
                 'data' => Null,
@@ -39,7 +39,7 @@ class CartController extends Controller
             ]);
         }
         $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
-        
+
         if (isset($carts)) {
             $carts->price = $product->price;
             $carts->quantity = $carts->quantity + $request->quantity;
@@ -48,7 +48,7 @@ class CartController extends Controller
         } else {
             $carts = new Cart;
             $carts->customer_id = Auth::guard('customer')->id();
-            $carts->product_id = $product->id;       
+            $carts->product_id = $product->id;
             $carts->price = $product->price;
             $carts->quantity = $request->quantity;
             $carts->amount = $carts->price * $carts->quantity;
@@ -60,7 +60,7 @@ class CartController extends Controller
             $cartamount = $cart->amount;
             $total+= $cartamount;
         }
-        
+
         return view('frontend.cartproduct', compact('carts','total'))->render();
 
     }
@@ -73,7 +73,7 @@ class CartController extends Controller
 
             request()->session()->flash('success', 'Cart successfully removed');
 
-            return back()->with('message', 'Product has been removed from cart successfully.');  
+            return back()->with('message', 'Product has been removed from cart successfully.');
         }
 
         request()->session()->flash('error', 'Error please try again');
@@ -82,39 +82,50 @@ class CartController extends Controller
     }
 
     public function update(Request $request) {
- 
+
          foreach ($request->quantity as $key => $quantity) {
              $cart_id = $request->id[$key];
              $cart = Cart::find($cart_id);
-             
+
              if ($quantity > 0 && $cart) {
                  $cart->quantity = $quantity;
                  $cart->price = $cart->product->price;
                  $cart->amount = $cart->price * $quantity;
-                 
+
                  $cart->save();
              }
          }
-         
+
          return view('frontend.cartupdate', compact('cart'))->render();
      }
 
      public function checkout() {
-        $categories = Category::get();
-        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
-        $products = Product::where('is_featured', 1)->get();
-        $customer_id = Auth::guard('customer')->id();
-        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+        if(Auth::guard('customer')->user() && isset(Auth::guard('customer')->user()->id)) {
+            $categories = Category::get();
+            $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
+            $products = Product::where('is_featured', 1)->get();
+            $customer_id = Auth::guard('customer')->id();
+            $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
 
-        $total = Cart::where('customer_id',  Auth::guard('customer')->user()->id)->where('is_ordered', 0)->sum(\DB::raw('amount'));
-        $shipping_charge = Setting::where('slug','shipping_charge')->get();
-        foreach($shipping_charge as $charge){
-            $charge= $charge->value;
+            $total = Cart::where('customer_id',  Auth::guard('customer')->user()->id)->where('is_ordered', 0)->sum(\DB::raw('amount'));
+            $shipping_charge = Setting::where('slug','shipping_charge')->get();
+            foreach($shipping_charge as $charge){
+                $charge= $charge->value;
+            }
+            $total_amount = $total+$charge;
+
+
+            return view('frontend.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
+        } else {
+            $customer_id = Auth::guard('customer')->id();
+            $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+            $categories = Category::get();
+            $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
+            $products = Product::where('is_featured', 1)->get();
+
+            return view('frontend.auth.login',compact('carts','categories','subcategories','products'));
         }
-        $total_amount = $total+$charge;
-        
-               
-        return view('frontend.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
+
     }
 
 }

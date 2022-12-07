@@ -76,7 +76,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{slider}', 'Backend\SliderController@update')->name('update');
         Route::get('{slider}/edit', 'Backend\SliderController@edit')->name('edit');
         Route::get('{id}', 'Backend\SliderController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'category.', 'prefix' => 'category'], function () {
@@ -86,7 +85,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{category}', 'Backend\CategoryController@update')->name('update');
         Route::get('{category}/edit', 'Backend\CategoryController@edit')->name('edit');
         Route::get('{id}', 'Backend\CategoryController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'subcategory.', 'prefix' => 'subcategory'], function () {
@@ -96,7 +94,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{subcategory}', 'Backend\SubCategoryController@update')->name('update');
         Route::get('{subcategory}/edit', 'Backend\SubCategoryController@edit')->name('edit');
         Route::get('{id}', 'Backend\SubCategoryController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'service.', 'prefix' => 'service'], function () {
@@ -106,7 +103,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{service}', 'Backend\ServiceController@update')->name('update');
         Route::get('{service}/edit', 'Backend\ServiceController@edit')->name('edit');
         Route::get('{id}', 'Backend\ServiceController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'training.', 'prefix' => 'training'], function () {
@@ -116,7 +112,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{training}', 'Backend\TrainingController@update')->name('update');
         Route::get('{training}/edit', 'Backend\TrainingController@edit')->name('edit');
         Route::get('{id}', 'Backend\TrainingController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'product.', 'prefix' => 'product'], function () {
@@ -127,7 +122,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('{product}/edit', 'Backend\ProductController@edit')->name('edit');
         Route::get('{id}', 'Backend\ProductController@destroy')->name('destroy');
         Route::post('productcategory', 'Backend\ProductController@productCategoryAjax')->name('productcategoryajax');
-
     });
 
     Route::group(['as' => 'brand.', 'prefix' => 'brand'], function () {
@@ -137,7 +131,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{brand}', 'Backend\BrandController@update')->name('update');
         Route::get('{brand}/edit', 'Backend\BrandController@edit')->name('edit');
         Route::get('{id}', 'Backend\BrandController@destroy')->name('destroy');
-
     });
 
 
@@ -148,7 +141,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::put('{testimonial}', 'Backend\TestimonialController@update')->name('update');
         Route::get('{testimonial}/edit', 'Backend\TestimonialController@edit')->name('edit');
         Route::get('{id}', 'Backend\TestimonialController@destroy')->name('destroy');
-
     });
 
     Route::group(['as' => 'deal.', 'prefix' => 'deal'], function () {
@@ -167,33 +159,31 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 });
 
-Route::get('/register', 'Frontend\CustomerController@viewCustomerRegister')
-     ->middleware('guest:customer')
-    ->name('user-register');
-Route::post('/customer/register', 'Frontend\CustomerController@customerRegister')
-     ->middleware('guest:customer')
-    ->name('customer-register');
-Route::get('/customer-login', 'Frontend\CustomerController@viewCustomerLogin')
-     ->middleware('guest:customer')
-    ->name('user-login');
-Route::post('/customer/login', 'Frontend\CustomerController@customerLogin')
-    ->middleware('guest:customer')
-    ->name('customer-login');
-Route::post('/customer/logout', 'Frontend\CustomerController@logout')
-    ->name('customer-logout');
-Route::post('/addtocart', 'Frontend\CartController@addCart')->name('add-to-cart');
-Route::get('/cart/{id}', 'Frontend\CartController@destroy')->name('delete-cart');
-Route::get('/cart', 'Frontend\CartController@viewCart')->name('view-cart');
-Route::post('/update-cart', 'Frontend\CartController@update')->name('update-cart');
-Route::get('/checkout', 'Frontend\CartController@checkout')->name('checkout');
-Route::post('/order', 'Frontend\OrderController@store')->name('order');
-Route::get('/order-details/{order_number}', 'Frontend\OrderController@orderDetails')->name('order-details');
-Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-account');
-Route::get('/view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
-Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
-Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
-Route::get('/address/edit/{id}',  'Frontend\CustomerController@editAddress')->name('edit-address');
-Route::post('/address/save',  'Frontend\CustomerController@updateAddress')->name('update-address');
+
+Route::get('/register', 'Frontend\CustomerController@viewCustomerRegister')->name('user-register');
+Route::post('/customer/register', 'Frontend\CustomerController@customerRegister')->name('customer-register');
+Route::get('/customer-login', 'Frontend\CustomerController@viewCustomerLogin')->name('user-login');
+Route::post('/customer/login', 'Frontend\CustomerController@customerLogin')->name('customer-login');
+
+Route::group(['middleware' => 'auth:customer'], function () {
+
+    Route::post('/customer/logout', 'Frontend\CustomerController@logout')->name('customer-logout');
+    Route::post('/addtocart', 'Frontend\CartController@addCart')->name('add-to-cart');
+    Route::get('/cart/{id}', 'Frontend\CartController@destroy')->name('delete-cart');
+    Route::get('/cart', 'Frontend\CartController@viewCart')->name('view-cart');
+    Route::post('/update-cart', 'Frontend\CartController@update')->name('update-cart');
+    Route::get('/checkout', 'Frontend\CartController@checkout')->name('checkout');
+    Route::post('/order', 'Frontend\OrderController@store')->name('order');
+    Route::get('/order-details/{order_number}', 'Frontend\OrderController@orderDetails')->name('order-details');
+    Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-account');
+    Route::get('/view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
+    Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
+    Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
+    Route::get('/address/edit/{id}',  'Frontend\CustomerController@editAddress')->name('edit-address');
+    Route::post('/address/save',  'Frontend\CustomerController@updateAddress')->name('update-address');
+});
+
+
 
 
 
@@ -204,15 +194,15 @@ Route::get('trainingsdetail/{trainings}', 'Frontend\FrontendController@trainings
 
 Route::get('products/{slug}', 'Frontend\FrontendController@getproductbyCategory')->name('products');
 Route::get('productdetail/{products}', 'Frontend\FrontendController@productdetailbyCategory')->name('products.detail');
-Route::post('productsortby', 'Frontend\FrontendController@productsortBy')->name('productsortby') ;
+Route::post('productsortby', 'Frontend\FrontendController@productsortBy')->name('productsortby');
 //route for ajax
-Route::post('quick-view-product','Frontend\FrontendController@quickViewProduct')->name('quick-view-product');
+Route::post('quick-view-product', 'Frontend\FrontendController@quickViewProduct')->name('quick-view-product');
 //
 Route::get('all-products/{id}', 'Frontend\FrontendController@getproductbySubCategory')->name('all-products');
 Route::post('contact', 'Frontend\FrontendController@sendcontact')->name('send-contact');
 Route::get('contact', 'Frontend\FrontendController@contact')->name('contact');
 
 
-Route::get('/search/','Frontend\FrontendController@searchResult')->name('search');
+Route::get('/search/', 'Frontend\FrontendController@searchResult')->name('search');
 
 Route::get('{page}', 'Frontend\FrontendController@page')->name('page.detail');

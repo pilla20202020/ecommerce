@@ -23,7 +23,7 @@ class CustomerController extends Controller
         $customer_id = Auth::guard('customer')->id();
 
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-         
+
         return view('frontend.auth.register',compact('carts','categories','subcategories','products'));
     }
 
@@ -33,22 +33,21 @@ class CustomerController extends Controller
         $categories = Category::get();
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
-        
+
         return view('frontend.auth.login',compact('carts','categories','subcategories','products'));
     }
 
     public function customerRegister(Request $request) {
         $validator = $this->validate($request, [
             'name' => ['required', 'string'],
-            'email' => ['required', 'string', 'email',],
+            'email' => ['required', 'string', 'email','unique:customers,email'],
             'password' => ['required', Password::defaults()],
-            'phone' => ['required','regex:/[0-9]{10}/'],
+            'phone' => ['required','regex:/[0-9]{10}/','unique:customers,phone'],
             'address' => ['required', 'string'],
 
         ]);
-        
+
         $customer = new Customer();
-        
         $customer->name = $request['name'];
         $customer->password = Hash::make($request['password']);
         $customer->email = $request['email'];
@@ -65,13 +64,13 @@ class CustomerController extends Controller
             'password' => 'required'
         ]);
         $remember_login = $request['remember'] == 'on' ? true : false;
-        
+
         if (Auth::guard('customer')->attempt([
             'email' => $request->email,
             'password' => $request->password
         ])) {
             $request->session()->regenerate();
-            
+
             return redirect('/');
         }
 
@@ -121,7 +120,7 @@ class CustomerController extends Controller
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
         $orders = Order::where('customer_id', Auth::guard('customer')->id())->orderBy('id', 'DESC')->get();
-        
+
         $customer = Customer::findOrFail($customer_id);
         $customer->address = $request->address;
         $customer->save();

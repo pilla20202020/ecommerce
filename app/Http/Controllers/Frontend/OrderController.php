@@ -16,23 +16,26 @@ use Auth;
 
 class OrderController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('guest:customer');
+    }
+
     public function store(Request $request){
-       
+
 
         $this->validate($request, [
             'name' => ['required'],
             'address' => ['required'],
-            'city' => ['required'],
             'phone' => ['required'],
             'email' => ['required', 'email'],
             'preferred_delivery_date' => ['required'],
-            'timeslot' => ['required'],
             'payment_method' => ['required'],
-            
+
         ]);
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-        
+
         if (count($carts) == 0) {
             request()->session()->flash('error', 'Cart is Empty !');
 
@@ -68,7 +71,7 @@ class OrderController extends Controller
         $order->payment_status = "unpaid";
         $order->status = "new";
         $order->save();
-        
+
         //create order details
         foreach($carts as $cart) {
             $order_details = new OrderDetail();
@@ -78,11 +81,11 @@ class OrderController extends Controller
             $order_details->rate = $cart->price;
             $order_details->quantity = $cart->quantity;
             $order_details->amount = $cart->amount;
-            
-            
+
+
             //dd($request->all());
             $order_details->save();
-            
+
             // Mark Cart as Ordered
             $cart->is_ordered = 1;
             $cart->save();

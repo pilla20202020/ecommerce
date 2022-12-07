@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->string('password');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

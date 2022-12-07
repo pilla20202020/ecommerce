@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_number')->unique();
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->string('address');
-            $table->string('city');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
             $table->string('phone');
             $table->string('email');
             $table->string('order_note')->nullable();
@@ -26,7 +26,6 @@ class CreateOrdersTable extends Migration
             $table->date('preferred_delivery_date')->nullable();
             $table->string('timeslot')->nullable();
             $table->float('total_amount');
-            
             $table->enum('payment_method',['cash-on-delivery', 'esewa'])->default('cash-on-delivery');
             $table->enum('payment_status',['paid', 'unpaid'])->default('unpaid');
             $table->enum('status',['new', 'confirmed', 'processing', 'processed', 'pickup_ready', 'out_for_delivery', 'delivered', 'cancelled'])->default('new');

@@ -106,7 +106,7 @@
             <div class="main_menu menu_three">
                 <nav>
                     <ul>
-                        <li class="active"><a  href="{{ route('homepage') }}" class="active"> Home</a>
+                        <li><a  href="{{ route('homepage') }}"> Home</a>
 
                         </li>
                         <li class="mega_items"><a href="">Products</a>

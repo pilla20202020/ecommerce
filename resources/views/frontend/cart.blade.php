@@ -3,7 +3,7 @@
 
    <!--breadcrumbs area start-->
    <div class="breadcrumbs_area">
-    <div class="container">   
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb_content">
@@ -14,14 +14,14 @@
                 </div>
             </div>
         </div>
-    </div>         
+    </div>
 </div>
 <!--breadcrumbs area end-->
 
 <!--shopping cart area start -->
 <div class="shopping_cart_area">
-    <div class="container">  
-        <form action="#"> 
+    <div class="container">
+        <form action="#">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
@@ -54,7 +54,7 @@
                                                     <div class="input-group">
                                                         <input type="hidden" id="cartid" class= "cartid" name="id[]" value="{{ $cart->id }}" />
                                                         <button type="button" class="quantity-minus d-icon-minus"></button>
-                                                        <input name="quantity[]" class="quantity form-control" type="number" min="1"
+                                                        <input name="quantity[]" class="quantity" type="number" min="1"
                                                             max="1000000" value="{{ $cart->quantity }}">
                                                         <button type="button" class="quantity-plus d-icon-plus"></button>
                                                     </div>
@@ -67,14 +67,14 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>   
-                            </div>  
+                                </table>
+                            </div>
                             <div class="cart_submit">
                                 <a href="javascript:;"  class="btn btn-outline btn-dark btn-md btn-rounded updatecart">
                                     Update
-                                </a> 
-                            </div> 
-                             </form>     
+                                </a>
+                            </div>
+                             </form>
                     </div>
                  </div>
              </div>
@@ -91,7 +91,7 @@
                                    <p>Subtotal</p>
                                    <p class="cart_amount">Rs. {{ number_format($carts->sum('amount')) }}</p>
                                </div>
-            
+
                                <a href="#">Calculate shipping</a>
 
                                <div class="checkout_btn">
@@ -103,8 +103,8 @@
                 </div>
             </div>
             <!--coupon code area end-->
-        </form> 
-    </div>     
+        </form>
+    </div>
 </div>
 <!--shopping cart area end -->
 
@@ -142,11 +142,11 @@
                         'success'
                     );
                 setTimeout(location.reload.bind(location), 500);
-               
+
            }
        })
-        
-               
+
+
    });
 </script>
 @endpush
