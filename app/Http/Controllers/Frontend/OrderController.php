@@ -104,7 +104,7 @@ class OrderController extends Controller
         $order_details = Order::where('order_number', $order_number)->first();
 
 
-        return view('frontend.order-details',compact('order_details','carts','categories','subcategories','products'));
+        return view('frontend.customer.order-details',compact('order_details','carts','categories','subcategories','products'));
     }
 
     public function viewOrder()

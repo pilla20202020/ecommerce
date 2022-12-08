@@ -54,6 +54,61 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         });
     });
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | User CRUD
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    Route::group(['as' => 'user.', 'prefix' => 'user',], function () {
+        Route::get('', 'Backend\UserController@index')->name('index')->middleware('permission:user-index');
+        Route::get('user-data', 'Backend\UserController@getAllData')->name('data')->middleware('permission:user-data');
+        Route::get('create', 'User\UserController@create')->name('create')->middleware('permission:user-create');
+        Route::post('', 'Backend\UserController@store')->name('store')->middleware('permission:user-store');
+        Route::get('{user}/edit', 'Backend\UserController@edit')->name('edit')->middleware('permission:user-edit');
+        Route::put('{user}', 'Backend\UserController@update')->name('update')->middleware('permission:user-update');
+        Route::get('user/{id}/destroy', 'Backend\UserController@destroy')->name('destroy')->middleware('permission:user-delete');
+        Route::get('update-profile', 'Backend\UserController@profileUpdate')->name('profileUpdate');
+        Route::post('update-profile/{id}', 'Backend\UserController@profileUpdateStore')->name('updateProfile');
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Role CRUD
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    Route::group(['as' => 'role.', 'prefix' => 'role',], function () {
+        Route::get('', 'Backend\RoleController@index')->name('index')->middleware('permission:role-index');
+        Route::get('role-data', 'Backend\RoleController@getAllData')->name('data')->middleware('permission:role-data');
+        Route::get('create', 'Backend\RoleController@create')->name('create')->middleware('permission:role-create');
+        Route::post('', 'Backend\RoleController@store')->name('store')->middleware('permission:role-store');
+        Route::get('{role}/edit', 'Backend\RoleController@edit')->name('edit')->middleware('permission:role-edit');
+        Route::put('{role}', 'Backend\RoleController@update')->name('update')->middleware('permission:role-update');
+        Route::get('role/{id}/destroy', 'Backend\RoleController@destroy')->name('destroy')->middleware('permission:role-delete');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permission CRUD
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    Route::group(['as' => 'permission.', 'prefix' => 'permission',], function () {
+        Route::get('', 'Backend\PermissionController@index')->name('index')->middleware('permission:role-index');
+        Route::get('permission-data', 'Backend\PermissionController@getAllData')->name('data')->middleware('permission:role-data');
+        Route::get('create', 'Backend\PermissionController@create')->name('create')->middleware('permission:permission-create');
+        Route::post('', 'Permission\Backend@store')->name('store')->middleware('permission:role-store');
+        Route::get('{permission}/edit', 'Backend\PermissionController@edit')->name('edit')->middleware('permission:permission-edit');
+        Route::put('{permission}', 'Backend\PermissionController@update')->name('update')->middleware('permission:role-update');
+        Route::get('permission/{id}/destroy', 'Backend\PermissionController@destroy')->name('destroy')->middleware('permission:permission-delete');
+    });
+
     /*
         |--------------------------------------------------------------------------
         | Page CRUD Routes

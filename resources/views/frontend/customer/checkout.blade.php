@@ -149,13 +149,13 @@
                                 <div class="payment_method">
                                     <h3>Shipping Details</h3>
                                     <div class="payment accordion radio-type sumnary-shipping">
-                                        <h4 class="summary-subtitle ls-m pb-3">Preferred Delivery Date</h4>
+                                        <h4 class="summary-subtitle ls-m">Preferred Delivery Date</h4>
                                         <div class="select-box">
-                                            <input id="preferred_delivery_date" name="preferred_delivery_date" class="form-control" type="date" required>
+                                            <input id="preferred_delivery_date" name="preferred_delivery_date" class="form-control mb-3" type="date" required>
                                         </div>
 
-                                        <h4 class="summary-subtitle ls-m pb-3">Delivery Time Slot</h4>
-                                        <div class="select-box" id="timeslot" >
+                                        <h4 class="summary-subtitle ls-m">Delivery Time Slot</h4>
+                                        <div class="select-box mb-3" id="timeslot" >
                                             <select  class="form-control"  name="timeslot">
                                                 <option value="">Select Time Slot</option>
                                                 <option value="12pm-3pm">12pm-3pm</option>
@@ -165,8 +165,8 @@
                                             </select>
                                         </div>
 
-                                        <h4 class="summary-subtitle ls-m pb-3">Payment Method</h4>
-                                        <div class="select-box" id="timeslot" >
+                                        <h4 class="summary-subtitle ls-m">Payment Method</h4>
+                                        <div class="select-box pb-2" id="timeslot" >
                                             <select  class="form-control"  name="payment_method" required>
                                                 <option value="">Select Payment Method</option>
                                                 <option value="cash-on-delivery">Cash on Delivery </option>

@@ -15,7 +15,7 @@
             <i class="glyphicon glyphicon-edit"></i>
         </a>
         <a href="{{ route('training.destroy', $training->id) }}">
-        <button type="button" 
+        <button type="button"
             class="btn btn-flat btn-danger btn-xs item-delete" title="delete">
             <i class="glyphicon glyphicon-trash"></i>
         </button>

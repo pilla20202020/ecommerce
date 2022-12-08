@@ -20,7 +20,7 @@ class CartController extends Controller
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
 
-        return view('frontend.cart',compact('categories','subcategories','products','carts'));
+        return view('frontend.customer.cart',compact('categories','subcategories','products','carts'));
     }
 
     public function addCart(Request $request){
@@ -61,7 +61,7 @@ class CartController extends Controller
             $total+= $cartamount;
         }
 
-        return view('frontend.cartproduct', compact('carts','total'))->render();
+        return view('frontend.customer.cartproduct', compact('carts','total'))->render();
 
     }
 
@@ -96,7 +96,7 @@ class CartController extends Controller
              }
          }
 
-         return view('frontend.cartupdate', compact('cart'))->render();
+         return view('frontend.customer.cartupdate', compact('cart'))->render();
      }
 
      public function checkout() {
@@ -115,7 +115,7 @@ class CartController extends Controller
             $total_amount = $total+$charge;
 
 
-            return view('frontend.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
+            return view('frontend.customer.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
         } else {
             $customer_id = Auth::guard('customer')->id();
             $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();

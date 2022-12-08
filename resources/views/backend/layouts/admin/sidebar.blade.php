@@ -14,6 +14,8 @@
 				</div>
 				<div class="menubar-scroll-panel">
 
+
+
 					<!-- BEGIN MAIN MENU -->
 					<ul id="main-menu" class="gui-controls">
 
@@ -25,6 +27,21 @@
 							</a>
 						</li><!--end /menu-li -->
 						<!-- END DASHBOARD -->
+
+                        @role('SuperAdmin')
+
+                            <li class="gui-folder expanded">
+                                <a>
+                                    <div class="gui-icon"><i class="md md-settings"></i></div>
+                                    <span class="title">Admin</span>
+                                </a>
+                                <ul style="overflow: hidden; height: 84px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;">
+                                    <li><a href="{{ route('user.index') }}"><span class="title">User</span></a></li>
+                                    <li><a href="{{ route('role.index') }}"><span class="title">Role</span></a></li>
+                                    <li><a href="{{ route('permission.index') }}"><span class="title">Permissions</span></a></li>
+                                </ul><!--end /submenu -->
+                            </li>
+                        @endrole
 
 						{{-- <li class="gui-folder">
 							<a href="{{ route('menu.index') }}">
@@ -41,7 +58,7 @@
 							</a>
 						</li>
 
-						
+
 						<li class="gui-folder">
 							<a href="{{ route('slider.index') }}" >
 								<div class="gui-icon"><i class="md md-image"></i></div>
@@ -62,20 +79,20 @@
 								<span class="title">Sub-Category</span>
 							</a>
 						</li>
-						
+
 						<li class="gui-folder">
 							<a href="{{ route('brand.index') }}">
 								<div class="gui-icon"><i class="md md-attach-money"></i></div>
 								<span class="title">Brand</span>
 							</a>
-						</li> 
+						</li>
 
                         <li class="gui-folder">
 							<a href="{{ route('product.index') }}">
 								<div class="gui-icon"><i class="fa fa-shopping-cart"></i></div>
 								<span class="title">Product</span>
 							</a>
-						</li> 
+						</li>
 
 						<li class="gui-folder">
 							<a href="{{ route('view-order') }}" >
@@ -124,7 +141,7 @@
 							</ul>
 						</li> --}}
 
-                        
+
 
                         {{-- <li class="gui-folder">
 							<a href="{{ route('testimonial.index') }}" >
@@ -133,7 +150,7 @@
 							</a>
 						</li> --}}
 
-                       
+
 
 
 
