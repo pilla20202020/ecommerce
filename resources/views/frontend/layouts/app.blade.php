@@ -77,6 +77,7 @@
 
     $(document).ready(function() {
         var getcurrentactive = $('.getcurrentactive').closest('.mega_items').children().addClass('active');
+        console.log(getcurrentactive);
     });
 </script>
 

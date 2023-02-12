@@ -15,7 +15,7 @@ class Training extends Model
 
     protected $path ='uploads/training';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'

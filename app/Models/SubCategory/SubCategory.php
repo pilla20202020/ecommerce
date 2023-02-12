@@ -12,7 +12,7 @@ class SubCategory extends Model
 
     protected $path ='uploads/subcategory';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'

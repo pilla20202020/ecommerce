@@ -11,7 +11,7 @@ class Brand extends Model
 
     protected $path ='uploads/brand';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'
@@ -85,6 +85,6 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-   
+
 }
 

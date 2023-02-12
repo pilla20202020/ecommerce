@@ -9,12 +9,12 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
-    
+
 use Sluggable;
 
     protected $path ='uploads/product';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'
@@ -93,7 +93,7 @@ use Sluggable;
     {
         return $this->belongsTo(Brand::class);
     }
-    
+
 
 
 }

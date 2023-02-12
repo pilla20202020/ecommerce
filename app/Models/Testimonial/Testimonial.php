@@ -11,7 +11,7 @@ class Testimonial extends Model
 
     protected $path ='uploads/testimonial';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'

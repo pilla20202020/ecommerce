@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $path ='uploads/category';
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'

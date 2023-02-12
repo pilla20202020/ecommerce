@@ -11,7 +11,7 @@ class Menu extends Model
 {
     use Sluggable;
 
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'name'
@@ -96,7 +96,7 @@ class Menu extends Model
     {
         return $query->where('is_primary', $type);
     }
-    
+
     public function subMenus()
     {
         return $this->hasMany(SubMenu::class)->with('childsubMenus');

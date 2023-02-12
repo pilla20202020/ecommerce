@@ -12,13 +12,13 @@ class Service extends Model
 
     protected $path ='uploads/service';
 
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    public function sluggable(){
+    public function sluggable(): array{
         return [
             'slug' => [
                 'source' => 'title'
@@ -26,7 +26,7 @@ class Service extends Model
         ];
     }
     protected $fillable = [
-      
+
         'slug',
         'title',
         'content',
@@ -99,6 +99,6 @@ class Service extends Model
         return $this->hasMany(Training::class);
     }
 
-    
+
 }
 

@@ -12,7 +12,7 @@ class Page extends Model
     protected $path = 'uploads/page';
     protected $banner_path = 'uploads/banner_image';
 
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
