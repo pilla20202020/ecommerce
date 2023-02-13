@@ -44,6 +44,14 @@ class ProductRequest extends FormRequest
             'best_seller' => ($this->get('best_seller') ? $this->get('best_seller') : '') == 'on' ? '1' : '0',
         ];
 
+        if($this->get('keywords')) {
+            $keywords = collect($this->get('keywords'));
+        }
+
+        if(isset($keywords)) {
+            $data['keywords'] = $keywords->implode(',');
+        }
+
         return $data;
     }
 }

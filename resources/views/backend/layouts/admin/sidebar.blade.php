@@ -28,7 +28,7 @@
 						</li><!--end /menu-li -->
 						<!-- END DASHBOARD -->
 
-                        @role('SuperAdmin')
+
 
                             <li class="gui-folder expanded">
                                 <a>
@@ -41,7 +41,7 @@
                                     <li><a href="{{ route('permission.index') }}"><span class="title">Permissions</span></a></li>
                                 </ul><!--end /submenu -->
                             </li>
-                        @endrole
+
 
 						{{-- <li class="gui-folder">
 							<a href="{{ route('menu.index') }}">

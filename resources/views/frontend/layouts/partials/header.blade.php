@@ -109,7 +109,7 @@
                         <li><a  href="{{ route('homepage') }}"> Home</a>
 
                         </li>
-                        <li class="mega_items"><a href="">Products</a>
+                        <li class="mega_items"><a href="javascript: void(0);">Products</a>
                             <div class="mega_menu">
                                 <ul class="mega_menu_inner">
 
@@ -131,7 +131,7 @@
                             </div>
                         </li>
 
-                        <li class="mega-items"><a href="{{ route('services') }}"> Our Services</a>
+
 
                         </li>
                         <li><a href="{{ route('about') }}"> About Us</a></li>

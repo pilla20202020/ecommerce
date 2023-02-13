@@ -23,8 +23,8 @@
                             <th width="20%">Image</th>
                             <th width="20%">Name</th>
                             <th width="20%">Category</th>
+                            <th width="20%">Sub Category</th>
                             <th width="20%">Price</th>
-                            <th width="20%" class="text-center">Featured</th>
                             <th width="15%" class="text-right">Actions</th>
                         </tr>
                         </thead>

@@ -17,12 +17,8 @@ use Auth;
 class OrderController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('guest:customer');
-    }
 
     public function store(Request $request){
-
 
         $this->validate($request, [
             'name' => ['required'],
@@ -49,11 +45,8 @@ class OrderController extends Controller
         } while (Order::where("order_number", $order_number_generated)->first());
 
         $total = Cart::where('customer_id',  Auth::guard('customer')->user()->id)->where('is_ordered', 0)->sum(\DB::raw('amount'));
-        $shipping_charge = Setting::where('slug','shipping_charge')->get();
-        foreach($shipping_charge as $charge){
-            $charge= $charge->value;
-        }
-        $total_amount = $total+$charge;
+
+        $total_amount = $total;
 
         $order = new Order;
         $order->order_number = $order_number_generated;
@@ -63,7 +56,7 @@ class OrderController extends Controller
         $order->phone = $request->phone;
         $order->email = $request->email;
         $order->order_note = $request->order_note;
-        $order->shipping_charge = $charge;
+        $order->shipping_charge = 0;
         $order->preferred_delivery_date = $request->preferred_delivery_date;
         $order->timeslot = $request->timeslot;
         $order->total_amount = $total_amount;

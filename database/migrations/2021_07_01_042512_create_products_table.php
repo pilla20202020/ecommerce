@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('specification')->nullable();
             $table->decimal('price')->nullable();
+            $table->longText('keywords')->nullable();
             $table->string('image')->nullable();
             $table->string('banner_image')->nullable();
             $table->string('image1')->nullable();

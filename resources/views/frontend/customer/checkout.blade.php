@@ -84,11 +84,6 @@
                                 <input name="address" placeholder="House number and street name" type="text" value="{{ Auth::guard('customer')->user()->address }}">
                             </div>
 
-                            <div class="col-12 mb-20">
-                                <label>Town / City <span>*</span></label>
-                                <input name="city" placeholder="House number and street name" type="text">
-                            </div>
-
                             <div class="col-lg-6 mb-20">
                                 <label>Phone<span>*</span></label>
                                 <input name="phone" placeholder="House number and street name" type="text" value="{{ Auth::guard('customer')->user()->phone }}" required>

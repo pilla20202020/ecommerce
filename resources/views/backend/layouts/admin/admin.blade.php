@@ -34,7 +34,7 @@
 		<link rel="stylesheet"href="{{ asset('backend/assets/css/dropify.min.css') }}">
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 		<link type="text/css" rel="stylesheet" href="{{ asset('backend/assets/css/libs/nestable/nestable.css') }}"/>
-		<link rel="stylesheet" href="{{ asset('backend/assets/css/libs/select2/select2.css') }}">
+        <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
     	<link type="text/css" rel="stylesheet"
           href="{{asset('backend/assets/css/bootstrap-datetimepicker.min.css')}}"/>
 
@@ -105,6 +105,8 @@
 		<!-- END JAVASCRIPT -->
 		<script src="//cdn.ckeditor.com/4.14.1/full/ckeditor.js"></script>
 		<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="{{asset('js/select2.min.js')}}"></script>
+
 		<script>
 			$(document).ready(function(){
 				$('#teamsection').on('change', function() {

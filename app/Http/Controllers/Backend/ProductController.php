@@ -20,7 +20,7 @@ class ProductController extends Controller
         $this->subcategory = $subcategory;
         $this->brand = $brand;
         $this->product = $product;
-       
+
 
     }
     /**
@@ -76,7 +76,7 @@ class ProductController extends Controller
             if ($request->hasFile('image2')) {
                 $this->uploadFile($request, $product, 'image2');
             }
-          
+
         return redirect()->route('product.index')->withSuccess(trans('New Subcategory has been created'));
         }
     }
@@ -112,7 +112,8 @@ class ProductController extends Controller
         $subcategories = $this->subcategory->get();
         $brand_search = $this->brand->find($product->brand_id);
         $brands = $this->brand->get();
-        return view('backend.product.edit', compact('product','category_search','categories','subcategory_search','subcategories','brand_search','brands'));
+        $keywords = explode(',', $product->keywords);
+        return view('backend.product.edit', compact('product','keywords','category_search','categories','subcategory_search','subcategories','brand_search','brands'));
 
     }
 
@@ -135,7 +136,7 @@ class ProductController extends Controller
                 'slug' => $request->title,
             ])->save();
             if ($request->hasFile('image')) {
-           
+
 
                 $this->uploadFile($request, $product, 'image');
             }
@@ -148,7 +149,7 @@ class ProductController extends Controller
             if ($request->hasFile('image2')) {
                 $this->uploadFile($request, $product, 'image2');
             }
-          
+
         return redirect()->route('product.index')->withSuccess(trans('New Subcategory has been created'));
         }
 

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMailNotifiable;
 use App\Mail\SendContactInfo;
 use App\Models\Cart\Cart;
+use App\Models\Customer\Customer;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
@@ -30,6 +31,26 @@ class FrontendController extends Controller
      */
     public function homepage()
     {
+        $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+        if($customer) {
+            $customer_keywords = explode(',', $customer->keywords);
+            if($customer_keywords[0] != "") {
+                $customer_keywords = array_reverse($customer_keywords);
+                foreach($customer_keywords as $key => $keyword)
+                {
+                    $recommend_product[$key] = Product::where('keywords','LIKE','%'.$keyword.'%')->get()->toArray();
+                }
+                $singleArrayForCategory = array_reduce($recommend_product, 'array_merge', array());
+                $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
+            } else {
+                $customer_recommend_product = null;
+            }
+        } else {
+            $customer_recommend_product = null;
+        }
+
+
+
         $menus = Menu::where('is_published',0)->get();
         $sliders = Slider::where('is_published',0)->get();
         $brands = Brand::where('is_featured', 1)->where('is_published', 1)->get();
@@ -41,11 +62,11 @@ class FrontendController extends Controller
         $trainings = Training::where('is_featured', 1)->where('is_published', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-        return view('frontend.home',compact('carts','menus','sliders','brands','categories','subcategories','services','trainings','products','bestsellerproducts'));
+        return view('frontend.home',compact('customer_recommend_product','carts','menus','sliders','brands','categories','subcategories','services','trainings','products','bestsellerproducts'));
     }
 
-    
-    
+
+
 
     public function services()
     {
@@ -55,7 +76,7 @@ class FrontendController extends Controller
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
 
-        
+
         $trainings = Training::where('is_featured', 1)->where('is_published', 1)->get();
         return view('frontend.service.index',compact('carts','trainings','categories','subcategories','products'));
     }
@@ -70,7 +91,7 @@ class FrontendController extends Controller
         $services = Service::where('is_featured', 1)->where('is_published', 1)->get();
         return view('frontend.service.detail',compact('carts','trainings','services','categories','subcategories','products'));
     }
-    
+
     public function contact()
     {
         $categories = Category::get();
@@ -82,7 +103,7 @@ class FrontendController extends Controller
         return view('frontend.contact.contact',compact('carts','categories','subcategories','products'));
     }
 
-    
+
 
     public function sendcontact(Request $request)
     {
@@ -99,7 +120,7 @@ class FrontendController extends Controller
 
     public function getproductbyCategory($slug, Request $request)
     {
-        $category = Category::where('slug',$slug)->first();   
+        $category = Category::where('slug',$slug)->first();
         $subcategory = SubCategory::where('id', $category->id)->get();
         if($request->has('option')){
             if ($request->option == 'name') {
@@ -110,12 +131,12 @@ class FrontendController extends Controller
             }
             elseif ($request->option == 'price-high-to-low') {
                 $product = Product::where('category_id',$category->id)->orderBy('price','desc')->paginate(15);
-           
+
             }
         }else{
             $product = Product::where('category_id',$category->id)->paginate(15);
         }
-        
+
         $categories = Category::get();
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
@@ -140,17 +161,17 @@ class FrontendController extends Controller
             }
             elseif ($request->option == 'price-high-to-low') {
                 $product = Product::where('subcategory_id',$subcategory->id)->orderBy('price','desc')->paginate(15);
-           
+
             }
         }else{
             $product = Product::where('subcategory_id',$subcategory->id)->paginate(15);
         }
-       
+
 
         $categories = Category::get();
-        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();   
+        $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
-       
+
         return view('frontend.product.productsubcategory', compact('carts','products','product','category','categories','subcategory','subcategories'));
     }
 
@@ -164,15 +185,15 @@ class FrontendController extends Controller
         return view('frontend.product.productcategorydetail', compact('carts','products','categories','subcategories'));
     }
 
-    
+
 
 
     public function quickViewProduct(Request $request){
         $categories = Category::get();
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
-        
-        
+
+
         $product_id = $request->get('product_id');
         if($product_id){
             $product = Product::find($request->product_id);
@@ -209,33 +230,33 @@ class FrontendController extends Controller
         $products = Product::where('is_featured', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-        
+
         $search_title = $request->keyword;
         if(isset($request->keyword) && !empty($request->keyword)){
-    
+
             $product = Product::where('title','LIKE',"%".$request->keyword."%")
                         ->orWhere('description','LIKE',"%".$request->keyword."%")->get();
             return view('frontend.product.productsearch', compact('carts','categories','subcategories','products','product','search_title'));
         }
-        
+
     }
 
     public function page($slug = null)
     {
-        
+
         $categories = Category::get();
         $subcategories = SubCategory::where('is_featured', 1)->where('is_published', 1)->get();
         $products = Product::where('is_featured', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-       
+
         if ($slug) {
-            
+
             $page = Page::whereSlug($slug)->whereIsPublished(1)->first();
-            
+
 
             if ($page == null) {
-    
+
                 return view('frontend.errors.404',compact('categories','subcategories','products'));
             }
 
@@ -249,5 +270,5 @@ class FrontendController extends Controller
             }
         }
     }
-   
+
 }

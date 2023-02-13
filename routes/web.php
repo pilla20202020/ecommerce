@@ -221,7 +221,6 @@ Route::get('/customer-login', 'Frontend\CustomerController@viewCustomerLogin')->
 Route::post('/customer/login', 'Frontend\CustomerController@customerLogin')->name('customer-login');
 
 Route::group(['middleware' => 'auth:customer'], function () {
-
     Route::post('/customer/logout', 'Frontend\CustomerController@logout')->name('customer-logout');
     Route::post('/addtocart', 'Frontend\CartController@addCart')->name('add-to-cart');
     Route::get('/cart/{id}', 'Frontend\CartController@destroy')->name('delete-cart');

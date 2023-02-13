@@ -5,6 +5,7 @@ namespace App\Models\Product;
 use App\Models\Category\Category;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Brand\Brand;
+use App\Models\SubCategory\SubCategory;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
@@ -22,7 +23,7 @@ use Sluggable;
         ];
     }
 
-    protected $fillable = ['id', 'title', 'slug', 'category_id', 'subcategory_id', 'brand_id','description', 'specification','price','is_featured','is_trending','status','best_seller', 'image1', 'image2', 'image',
+    protected $fillable = ['id', 'title', 'slug', 'category_id', 'subcategory_id', 'brand_id','keywords','description', 'specification','price','is_featured','is_trending','status','best_seller', 'image1', 'image2', 'image',
     'banner_image'];
 
     protected $casts = [
@@ -87,6 +88,11 @@ use Sluggable;
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
     }
 
     public function brand()

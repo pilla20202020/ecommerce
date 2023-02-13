@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart\Cart;
 use App\Models\Category\Category;
+use App\Models\Customer\Customer;
 use App\Models\Product\Product;
 use App\Models\Setting\Setting;
 use App\Models\SubCategory\SubCategory;
@@ -24,13 +25,14 @@ class CartController extends Controller
     }
 
     public function addCart(Request $request){
+
         $this->validate($request, [
             'product_id' => 'required',
             'quantity' => ['required', 'integer', 'gt:0']
         ]);
 
         $product=  Product::where('id', $request->product_id)->first();
-
+        $keywords = explode(',', $product->keywords);
         if(!$product){
             return response()->json([
                 'data' => Null,
@@ -39,7 +41,20 @@ class CartController extends Controller
             ]);
         }
         $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
+        $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+        if($customer) {
+            foreach($keywords as $keyword)
+            {
+                if(str_contains($customer->keywords, $keyword))
+                {
+                   break;
+                } else {
+                    $customer->keywords = $customer->keywords. ',' .$keyword;
+                    $customer->save();
+                }
+            }
 
+        }
         if (isset($carts)) {
             $carts->price = $product->price;
             $carts->quantity = $carts->quantity + $request->quantity;
@@ -109,10 +124,8 @@ class CartController extends Controller
 
             $total = Cart::where('customer_id',  Auth::guard('customer')->user()->id)->where('is_ordered', 0)->sum(\DB::raw('amount'));
             $shipping_charge = Setting::where('slug','shipping_charge')->get();
-            foreach($shipping_charge as $charge){
-                $charge= $charge->value;
-            }
-            $total_amount = $total+$charge;
+
+            $total_amount = $total;
 
 
             return view('frontend.customer.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
