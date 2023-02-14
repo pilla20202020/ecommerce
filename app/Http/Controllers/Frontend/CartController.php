@@ -49,7 +49,11 @@ class CartController extends Controller
                 {
                    break;
                 } else {
-                    $customer->keywords = $customer->keywords. ',' .$keyword;
+                    if(!empty($customer->keywords)) {
+                        $customer->keywords = $customer->keywords. ',' .$keyword;
+                    } else {
+                        $customer->keywords = $keyword;
+                    }
                     $customer->save();
                 }
             }
