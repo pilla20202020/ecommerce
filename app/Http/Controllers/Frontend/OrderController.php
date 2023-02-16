@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart\Cart;
 use App\Models\Category\Category;
+use App\Models\Customer\Customer;
 use App\Models\Order\Order;
 use App\Models\OrderDetail\OrderDetail;
 use App\Models\Product\Product;
@@ -75,6 +76,27 @@ class OrderController extends Controller
             $order_details->quantity = $cart->quantity;
             $order_details->amount = $cart->amount;
 
+            $product=  Product::where('id', $cart->product_id)->first();
+            $keywords = explode(',', $product->keywords);
+            $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
+            $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+            if($customer) {
+                foreach($keywords as $keyword)
+                {
+                    if(str_contains($customer->keywords, $keyword))
+                    {
+                    break;
+                    } else {
+                        if(!empty($customer->keywords)) {
+                            $customer->keywords = $customer->keywords. ',' .$keyword;
+                        } else {
+                            $customer->keywords = $keyword;
+                        }
+                        $customer->save();
+                    }
+                }
+
+            }
 
             //dd($request->all());
             $order_details->save();

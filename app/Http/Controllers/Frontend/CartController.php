@@ -32,7 +32,6 @@ class CartController extends Controller
         ]);
 
         $product=  Product::where('id', $request->product_id)->first();
-        $keywords = explode(',', $product->keywords);
         if(!$product){
             return response()->json([
                 'data' => Null,
@@ -40,25 +39,26 @@ class CartController extends Controller
                 'message' => 'Product Not found'
             ]);
         }
-        $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
-        $customer = Customer::where('id',Auth::guard('customer')->id())->first();
-        if($customer) {
-            foreach($keywords as $keyword)
-            {
-                if(str_contains($customer->keywords, $keyword))
-                {
-                   break;
-                } else {
-                    if(!empty($customer->keywords)) {
-                        $customer->keywords = $customer->keywords. ',' .$keyword;
-                    } else {
-                        $customer->keywords = $keyword;
-                    }
-                    $customer->save();
-                }
-            }
+        // $keywords = explode(',', $product->keywords);
+        // $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
+        // $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+        // if($customer) {
+        //     foreach($keywords as $keyword)
+        //     {
+        //         if(str_contains($customer->keywords, $keyword))
+        //         {
+        //            break;
+        //         } else {
+        //             if(!empty($customer->keywords)) {
+        //                 $customer->keywords = $customer->keywords. ',' .$keyword;
+        //             } else {
+        //                 $customer->keywords = $keyword;
+        //             }
+        //             $customer->save();
+        //         }
+        //     }
 
-        }
+        // }
         if (isset($carts)) {
             $carts->price = $product->price;
             $carts->quantity = $carts->quantity + $request->quantity;
