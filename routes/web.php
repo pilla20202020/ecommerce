@@ -208,6 +208,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('{id}', 'Backend\DealController@destroy')->name('destroy');
     });
 
+    Route::group(['as' => 'order.', 'prefix' => 'order'], function () {
+
+        Route::get('view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
+        Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
+    });
+
+
     Route::group(['as' => 'contact.', 'prefix' => 'contact'], function () {
         Route::get('', 'Backend\ContactController@index')->name('index');
         Route::get('{contact}', 'Backend\ContactController@destroy')->name('destroy');
@@ -220,6 +227,8 @@ Route::post('/customer/register', 'Frontend\CustomerController@customerRegister'
 Route::get('/customer-login', 'Frontend\CustomerController@viewCustomerLogin')->name('user-login');
 Route::post('/customer/login', 'Frontend\CustomerController@customerLogin')->name('customer-login');
 
+Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
+
 Route::group(['middleware' => 'auth:customer'], function () {
     Route::post('/customer/logout', 'Frontend\CustomerController@logout')->name('customer-logout');
     Route::post('/addtocart', 'Frontend\CartController@addCart')->name('add-to-cart');
@@ -231,8 +240,6 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/order-details/{order_number}', 'Frontend\OrderController@orderDetails')->name('order-details');
     Route::get('/my-account', 'Frontend\CustomerController@myAccount')->name('my-account');
     Route::get('/view-order', 'Frontend\OrderController@viewOrder')->name('view-order');
-    Route::post('/update-payment-status', 'Frontend\OrderController@updatePaymentStatus')->name('update-payment-status');
-    Route::get('/view-order-items', 'Frontend\OrderController@viewOrderItems')->name('view-order-items');
     Route::get('/address/edit/{id}',  'Frontend\CustomerController@editAddress')->name('edit-address');
     Route::post('/address/save',  'Frontend\CustomerController@updateAddress')->name('update-address');
 });

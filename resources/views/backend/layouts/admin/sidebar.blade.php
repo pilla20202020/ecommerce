@@ -95,18 +95,18 @@
 						</li>
 
 						<li class="gui-folder">
-							<a href="{{ route('view-order') }}" >
+							<a href="{{ route('order.view-order') }}" >
 								<div class="gui-icon"><i class="fa fa-shopping-cart"></i></div>
 								<span class="title">Orders</span>
 							</a>
 						</li>
 
-						<li class="gui-folder">
+						{{-- <li class="gui-folder">
 							<a href="{{ route('training.index') }}" >
 								<div class="gui-icon"><i class="fa fa-mortar-board"></i></div>
 								<span class="title">Trainings</span>
 							</a>
-						</li>
+						</li> --}}
 
 						<li class="gui-folder">
 							<a href="{{ route('contact.index') }}" >

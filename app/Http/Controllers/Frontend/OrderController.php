@@ -130,9 +130,11 @@ class OrderController extends Controller
     }
 
     public function updatePaymentStatus(Request $request){
+
         foreach($request->order_id as $order){
             $list= Order::where('id',$order)->first();
             $list->payment_status = $request->paymentstatus;
+            $list->status = $request->status;
             $list->save();
        }
        return response()->json([
