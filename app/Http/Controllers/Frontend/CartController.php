@@ -20,8 +20,24 @@ class CartController extends Controller
         $products = Product::where('is_featured', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-
-        return view('frontend.customer.cart',compact('categories','subcategories','products','carts'));
+        $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+        if($customer) {
+            $customer_keywords = explode(',', $customer->keywords);
+            if($customer_keywords[0] != "") {
+                $customer_keywords = array_reverse($customer_keywords);
+                foreach($customer_keywords as $key => $keyword)
+                {
+                    $recommend_product[$key] = Product::where('keywords','LIKE','%'.$keyword.'%')->get()->toArray();
+                }
+                $singleArrayForCategory = array_reduce($recommend_product, 'array_merge', array());
+                $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
+            } else {
+                $customer_recommend_product = null;
+            }
+        } else {
+            $customer_recommend_product = null;
+        }
+        return view('frontend.customer.cart',compact('customer_recommend_product','categories','subcategories','products','carts'));
     }
 
     public function addCart(Request $request){
@@ -39,26 +55,25 @@ class CartController extends Controller
                 'message' => 'Product Not found'
             ]);
         }
-        // $keywords = explode(',', $product->keywords);
-        // $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
-        // $customer = Customer::where('id',Auth::guard('customer')->id())->first();
-        // if($customer) {
-        //     foreach($keywords as $keyword)
-        //     {
-        //         if(str_contains($customer->keywords, $keyword))
-        //         {
-        //            break;
-        //         } else {
-        //             if(!empty($customer->keywords)) {
-        //                 $customer->keywords = $customer->keywords. ',' .$keyword;
-        //             } else {
-        //                 $customer->keywords = $keyword;
-        //             }
-        //             $customer->save();
-        //         }
-        //     }
-
-        // }
+        $keywords = explode(',', $product->keywords);
+        $carts = Cart::where('customer_id', Auth::guard('customer')->id())->where('is_ordered', 0)->where('product_id', $product->id)->first();
+        $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+        if($customer) {
+            foreach($keywords as $keyword)
+            {
+                if(str_contains($customer->keywords, $keyword))
+                {
+                   break;
+                } else {
+                    if(!empty($customer->keywords)) {
+                        $customer->keywords = $customer->keywords. ',' .$keyword;
+                    } else {
+                        $customer->keywords = $keyword;
+                    }
+                    $customer->save();
+                }
+            }
+        }
         if (isset($carts)) {
             $carts->price = $product->price;
             $carts->quantity = $carts->quantity + $request->quantity;
@@ -131,8 +146,26 @@ class CartController extends Controller
 
             $total_amount = $total;
 
+            $customer = Customer::where('id',Auth::guard('customer')->id())->first();
+            if($customer) {
+                $customer_keywords = explode(',', $customer->keywords);
+                if($customer_keywords[0] != "") {
+                    $customer_keywords = array_reverse($customer_keywords);
+                    foreach($customer_keywords as $key => $keyword)
+                    {
+                        $recommend_product[$key] = Product::where('keywords','LIKE','%'.$keyword.'%')->get()->toArray();
+                    }
+                    $singleArrayForCategory = array_reduce($recommend_product, 'array_merge', array());
+                    $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
+                } else {
+                    $customer_recommend_product = null;
+                }
+            } else {
+                $customer_recommend_product = null;
+            }
 
-            return view('frontend.customer.checkout',compact('categories','subcategories','products','carts','total','total_amount'));
+
+            return view('frontend.customer.checkout',compact('customer_recommend_product','categories','subcategories','products','carts','total','total_amount'));
         } else {
             $customer_id = Auth::guard('customer')->id();
             $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();

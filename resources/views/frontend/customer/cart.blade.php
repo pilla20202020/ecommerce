@@ -101,6 +101,63 @@
             </div>
             <!--coupon code area end-->
         </form>
+
+        <!--recommended product area start-->
+        @if(isset($customer_recommend_product))
+
+            <section class="product_area product_three mb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section_title title_style3">
+                                <h3> Recommend For You</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product_wrapper product_color3">
+                        <div class="row product_slick_column3">
+                            @foreach($customer_recommend_product as $product)
+                                <div class="col-lg-3">
+                                    <div class="single_product">
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="{{ route('products.detail', $product['slug']) }}"><img src="{{asset($product['image_path'])}}" alt=""></a>
+                                            <div class="action_links">
+                                                <ul>
+                                                    @if(!empty(Auth::guard('customer')->user()))
+                                                        <li class="add_to_cart"><a href="javascript:;" class="addtocart" data-id="{{$product['id']}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                    @else
+                                                        <li class="add_to_cart"><a href="{{route('user-login')}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                    @endif
+                                                    <li ><a href="#" class="view-quickview" data-product_id="{{$product['id']}}" id="quickviewproduct" data-toggle="modal" data-target="#productquickview" title="Quick View"><i class="ion-eye"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product_content">
+                                            <div class="product_name">
+                                                <h4><a href="{{ route('products.detail', $product['slug']) }}">{{$product['title']}}</a></h4>
+                                            </div>
+
+                                            <div class="price-container">
+                                                <div class="price_box">
+                                                    <span class="current_price">Rs {{$product['price']}}</span>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+    <!--recommended product area end-->
     </div>
 </div>
 <!--shopping cart area end -->

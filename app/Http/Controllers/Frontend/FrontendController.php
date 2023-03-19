@@ -235,7 +235,8 @@ class FrontendController extends Controller
         if(isset($request->keyword) && !empty($request->keyword)){
 
             $product = Product::where('title','LIKE',"%".$request->keyword."%")
-                        ->orWhere('description','LIKE',"%".$request->keyword."%")->get();
+                        ->orWhere('description','LIKE',"%".$request->keyword."%")
+                        ->orWhere('keywords','LIKE','%'.$request->keyword.'%')->get();
             return view('frontend.product.productsearch', compact('carts','categories','subcategories','products','product','search_title'));
         }
 
