@@ -117,14 +117,14 @@ class OrderController extends Controller
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
 
         $order_details = Order::where('order_number', $order_number)->first();
-
-
-        return view('frontend.customer.order-details',compact('order_details','carts','categories','subcategories','products'));
+        $order_items = OrderDetail::where('order_id',$order_details->id)->get();
+        return view('frontend.customer.order-details',compact('order_details','order_items','carts','categories','subcategories','products'));
     }
 
     public function viewOrder()
     {
-        $orders = Order::all();
+        $orders = Order::orderBy('id', 'DESC')->get();
+
         return view('backend.order.index',compact('orders'));
 
     }

@@ -242,3 +242,45 @@
 <!--Checkout page section end-->
 
 @endsection
+
+@push('scripts')
+<script>
+    $(document).on('click','.addtocart',function(e){
+       e.preventDefault();
+       var qty = 1;
+       var product_id = Number($(this).data('id'));
+       var id = $('.id').val();
+       console.log(qty);
+       $.ajax({
+           url: "{{route('add-to-cart')}}",
+           method: 'post',
+           data: {
+               _token: '{{csrf_token()}}',
+               quantity: qty,
+               product_id: product_id,
+               id:id,
+               // price: $('.totalpricing').val(),
+           },
+           success:function(data){
+               $('.listitems').html(data);
+               var totalprice = $('.totalpricing').html();
+               $('.cart-price').html(totalprice);
+
+               var totalcount = $('.totalcounting').val();
+               $('.cart-count').html(totalcount)
+
+               Swal.fire(
+                        'Added to cart',
+                        '',
+                        'success'
+                    )
+                    setTimeout(function() {
+                                    window.location.reload();
+                                }, 1500);
+
+           }
+       })
+   });
+</script>
+
+@endpush

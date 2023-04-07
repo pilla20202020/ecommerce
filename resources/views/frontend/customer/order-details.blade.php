@@ -1,94 +1,84 @@
 @extends ('frontend.layouts.app')
 @section('content')
+    <div class="container">
 
-<div class="order-results">
-    <div class="overview-item">
-        <span>Order number:</span>
-        <strong>{{ $order_details->order_number }}</strong>
-    </div>
-    <div class="overview-item">
-        <span>Order Total:</span>
-        <strong>Rs {{ number_format($order_details->total_amount, 2) }}</strong>
-    </div>
-    {{-- <div class="overview-item">
-        <span>Order Date:</span>
-        <strong>{{ $order_details->ordered_date }}</strong>
-    </div> --}}
-    {{-- <div class="overview-item">
-        <span>Payment method:</span>
-        <strong>{{ $order_details->payment_method_label }}</strong>
-    </div> --}}
-    <div class="overview-item">
-        <span>Payment Status:</span>
-        <strong>{{ $order_details->payment_status }}</strong>
-    </div>
-</div>
-
-<h2 class="title title-simple text-left pt-4 font-weight-bold text-uppercase">Order Details</h2>
-        <div class="order-details">
-            <table class="order-details-table">
-                <thead>
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h3 class="summary-subtitle">Product</h3>
-                        </td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- @foreach($order_details->orderItems as $items)
-                    <tr>
-                        <td class="product-name">{{ $items->name }} <span> <i class="fas fa-times"></i>
-                        {{ $items->quantity }}</span></td>
-                        <td class="product-price">Rs {{ number_format($items->rate * $items->quantity, 2) }}</td>
-                    </tr>
-                    @endforeach --}}
-
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Subtotal:</h4>
-                        </td>
-                        <td class="summary-subtotal-price">Rs {{ number_format($order_details->sub_total, 2) }}</td>
-                    </tr>
-                    @if ($order_details->discount_amount > 0)
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Discount:</h4>
-                        </td>
-                        <td class="summary-subtotal-price">Rs {{ number_format($order_details->discount_amount, 2) }}</td>
-                    </tr>
-                    @endif
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Shipping:</h4>
-                        </td>
-                        <td class="summary-subtotal-price">{{ $order_details->shipping_method_name }}
-                            @if ($order_details->shipping_cost > 0)
-                             - Rs {{ number_format($order_details->shipping_cost, 2) }}
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Preferred Delivery Date:</h4>
-                        </td>
-                        <td class="summary-subtotal-price">{{ $order_details->formatted_preferred_delivery_date }}</td>
-                    </tr>
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Payment method:</h4>
-                        </td>
-                        <td class="summary-subtotal-price">{{ $order_details->payment_method_label }}</td>
-                    </tr>
-                    <tr class="summary-subtotal">
-                        <td>
-                            <h4 class="summary-subtitle">Total:</h4>
-                        </td>
-                        <td>
-                            <p class="summary-total-price">Rs {{ number_format($order_details->total_amount, 2) }}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2 class="mt-5">Thank You For Shopping</h2>
+        <div class="order-results row mt-2 p-4">
+            <div class="overview-item">
+                <span>Order number:</span>
+                <strong class="pt-2">{{ $order_details->order_number }}</strong>
+            </div>
+            <div class="overview-item">
+                <span>Order Total:</span>
+                <strong class="pt-2">Rs {{ number_format($order_details->total_amount, 2) }}</strong>
+            </div>
+            {{-- <div class="overview-item">
+            <span>Order Date:</span>
+            <strong>{{ $order_details->ordered_date }}</strong>
+        </div> --}}
+            <div class="overview-item">
+            <span>Payment method:</span>
+            <strong class="pt-2">{{ $order_details->payment_method }}</strong>
         </div>
+        </div>
+
+        <div class="shopping_cart_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table_desc">
+                            <div class="cart_page table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Rate</th>
+                                            <th>Quantity</th>
+                                            <th>Total Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="order_body">
+                                        @foreach ($order_items as $item)
+                                            <tr>
+                                                <td>{{$item->name}}</td>
+                                                <td>{{$item->rate}}</td>
+                                                <td>{{$item->quantity}}</td>
+                                                <td>{{$item->amount}}</td>
+                                            </tr>
+
+                                        @endforeach
+                                        <tfoot>
+
+                                            <tr class="summary-subtotal">
+                                                <td colspan="3">
+                                                    <h4 class="summary-subtitle text-right" >Subtotal:</h4>
+                                                </td>
+                                                <td class="summary-subtotal-price" colspan="3" class="col-lg-offset-2">Rs {{ number_format($order_details->total_amount, 2) }}</td>
+                                            </tr>
+
+
+                                            <tr class="summary-subtotal">
+                                                <td colspan="3">
+                                                    <h4 class="summary-subtitle text-right">Total:</h4>
+                                                </td>
+                                                <td  colspan="3">
+                                                    <p class="summary-total-price">Rs {{ number_format($order_details->total_amount, 2) }}</p>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
 @endsection

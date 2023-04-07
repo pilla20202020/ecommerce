@@ -42,7 +42,7 @@
                             <td>{{$order->customer->name}}</td>
                             <td>{{$order->customer->phone}}</td>
                             <td>Rs.{{$order->total_amount}}</td>
-                            <td>{{$order->created_at}}</td>
+                            <td>{{$order->created_at->format('Y-m-d')}}</td>
                             <td>{{$order->payment_method}}</td>
                             <td>{{$order->payment_status}}</td>
                             <td>{{$order->status}}</td>
