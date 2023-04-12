@@ -10,6 +10,7 @@ use App\Models\Product\Product;
 use App\Models\Setting\Setting;
 use App\Models\SubCategory\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -37,7 +38,46 @@ class CartController extends Controller
         } else {
             $customer_recommend_product = null;
         }
+
+        $allproducts =  Product::get();
+        foreach($allproducts as $allproduct)
+        {
+            $allproductkeywords[] = $allproduct->keywords;
+        }
+        // Vector Space
+        $vector1 = $customer_keywords ?? null;
+        $vector2 = $allproductkeywords;
+        $similarity_score =  $this->cosine_similarity($vector1, $vector2);
+
         return view('frontend.customer.cart',compact('customer_recommend_product','categories','subcategories','products','carts'));
+    }
+
+    // cosine similarity
+    public function cosine_similarity($vector1, $vector2) {
+
+        $dot_product = 0.0;
+        $magnitude1 = 0.0;
+        $magnitude2 = 0.0;
+        $vector1 = array(2,3,4);
+        $vector2 = array(1,3,5);
+        foreach($vector1 as $key => $value) {
+            if(isset($vector2[$key])) {
+                $dot_product += ($value * $vector2[$key]);
+            }
+            $magnitude1 += pow($value, 2);
+        }
+
+        foreach($vector2 as $key => $value) {
+            $magnitude2 += pow($value, 2);
+        }
+
+        $magnitude = sqrt($magnitude1) * sqrt($magnitude2);
+
+        if($magnitude == 0.0) {
+            return 0.0;
+        }
+
+        return $dot_product / $magnitude;
     }
 
     public function addCart(Request $request){
@@ -74,6 +114,11 @@ class CartController extends Controller
                 }
             }
         }
+
+
+
+
+
         if (isset($carts)) {
             $carts->price = $product->price;
             $carts->quantity = $carts->quantity + $request->quantity;
@@ -98,6 +143,8 @@ class CartController extends Controller
         return view('frontend.customer.cartproduct', compact('carts','total'))->render();
 
     }
+
+
 
     public function destroy($id)
     {
