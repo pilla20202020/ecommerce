@@ -253,6 +253,8 @@ Route::get('about', 'Frontend\FrontendController@about')->name('about');
 Route::get('services', 'Frontend\FrontendController@services')->name('services');
 Route::get('trainingsdetail/{trainings}', 'Frontend\FrontendController@trainingsDetail')->name('trainings.detail');
 
+Route::get('/list_all_product', 'Frontend\FrontendController@listAllProduct')->name('listAllProduct');
+Route::get('/applyfilter', 'Frontend\FrontendController@applyFilter')->name('applyfilter');
 Route::get('products/{slug}', 'Frontend\FrontendController@getproductbyCategory')->name('products');
 Route::get('productdetail/{products}', 'Frontend\FrontendController@productdetailbyCategory')->name('products.detail');
 Route::post('productsortby', 'Frontend\FrontendController@productsortBy')->name('productsortby');

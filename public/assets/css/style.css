@@ -7067,7 +7067,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .widget_list {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   border: 1px solid #eaecee;
   padding: 20px;
   background: #fff;
@@ -7145,6 +7145,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   cursor: pointer;
   border-radius: 50%;
   border: 0;
+  display: none;
 }
 
 .widget_list.widget_filter form {

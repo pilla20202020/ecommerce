@@ -20,6 +20,7 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }} ">
+    <link rel="stylesheet" href="{{asset('css/range.css')}}" />
 
 </head>
 
@@ -47,6 +48,8 @@
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="https://kit.fontawesome.com/746caa9b5e.js" crossorigin="anonymous"></script>
+
+<script src="{{asset('js/range.js')}}"></script>
 
 <script>
     $('.view-quickview').click(function(e){

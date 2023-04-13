@@ -24,7 +24,7 @@ use Sluggable;
     }
 
     protected $fillable = ['id', 'title', 'slug', 'category_id', 'subcategory_id', 'brand_id','keywords','description', 'specification','price','is_featured','is_trending','status','best_seller', 'image1', 'image2', 'image',
-    'banner_image'];
+    'banner_image','stock'];
 
     protected $casts = [
         'is_trending' => 'boolean',

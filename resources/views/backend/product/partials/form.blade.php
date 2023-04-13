@@ -57,6 +57,20 @@
 
                                         </div>
 
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <select name="brand_id" class="form-control" required>
+                                                    <option value="">Select Brands</option>
+                                                    @foreach($brands as $brand)
+                                                        <option value="{{$brand->id}}" @if(isset($brand_search)) @if($brand_search->id == $brand->id) selected @endif @endif>{{$brand->title}}</option>
+                                                    @endforeach
+
+                                                </select>
+                                                <span id="textarea1-error" class="text-danger">{{ $errors->first('brand_id') }}</span>
+                                            </div>
+                                        </div>
+
                                         <div class="row mt-5">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
@@ -81,12 +95,14 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <input type="number" name="price" class="form-control" required value="{{ old('price', isset($product->price) ? $product->price : '') }}"/>
                                                     <label for="price" class="control-label">Price</label>
                                                 </div>
                                             </div>
+
+
 
 
                                             <div class="col-md-6">
@@ -102,6 +118,18 @@
                                             </div>
 
 
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6" style="display:inline-flex">
+                                                <label for="price" style="padding-top: 15px;padding-right: 20px;" class="control-label">Stock:</label>
+                                                <input type="radio" id="instock" name="stock" value="in_stock" @if(isset($product) && $product->stock == "in_stock") checked @endif>
+                                                <label for="instock" class="pt-2" style="padding-top: 15px;padding-right: 20px; padding-left: 5px">In stock</label><br>
+                                                <input type="radio" id="outoffstock" name="stock" value="out_of_stock" @if(isset($product) && $product->stock == "out_of_stock") checked @endif >
+                                                <label for="outoffstock" style="padding-top: 15px;padding-right: 20px; padding-left: 5px">Out off Stock</label><br>
+                                                <hr>
+                                            </div>
                                         </div>
 
                                         <ul class="pager wizard">

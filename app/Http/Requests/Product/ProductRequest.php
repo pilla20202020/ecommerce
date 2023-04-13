@@ -38,6 +38,7 @@ class ProductRequest extends FormRequest
             'description'  => $this->get('description'),
             'specification'  => $this->get('specification'),
             'price'  => $this->get('price'),
+            'stock'  => $this->get('stock'),
             'is_featured' => ($this->get('is_featured') ? $this->get('is_featured') : '') == 'on' ? '1' : '0',
             'is_trending' => ($this->get('is_trending') ? $this->get('is_trending') : '') == 'on' ? '1' : '0',
             'status' => ($this->get('status') ? $this->get('status') : '') == 'on' ? '1' : '0',

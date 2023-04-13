@@ -118,10 +118,74 @@ class FrontendController extends Controller
         return redirect()->back()->withSuccess(trans('Contact Inquiry Send Successfully'));
     }
 
+    public function listAllProduct(Request $request)
+    {
+
+        $brands = Brand::get();
+        if($request->has('option')){
+            if ($request->option == 'name') {
+                $product = Product::orderBy('title','asc')->paginate(15);
+            }
+            elseif($request->option == 'price-low-to-high') {
+                $product = Product::orderBy('price','asc')->paginate(15);
+            }
+            elseif ($request->option == 'price-high-to-low') {
+                $product = Product::orderBy('price','desc')->paginate(15);
+
+            }
+        }else{
+            $product = Product::paginate(15);
+        }
+
+        $categories = Category::get();
+        $subcategories = SubCategory::where('is_published', 1)->get();
+        $products = Product::paginate(15);
+        $customer_id = Auth::guard('customer')->id();
+        $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
+        return view('frontend.product.list_all_product', compact('carts','brands','products','categories','subcategories'));
+    }
+
+    public function applyFilter(Request $request)
+    {
+        $products = Product::where(function ($query) use ($request) {
+                if (!empty($request->min) || !empty($request->max)) {
+                    $query->where('price', '>=',  $request->min)->where('price', '<=',  $request->max);
+                }
+                if (!empty($request->brand)) {
+                    $query->whereIn('brand_id', $request->brand);
+                }
+                if (!empty($request->category)) {
+                    $query->whereIn('category_id', $request->category);
+                }
+                if (!empty($request->stock)) {
+                    $query->where('stock', 'LIKE', '%' . $request->stock . '%');
+                }
+                return $query;
+            });
+            if(!empty($request->filter)) {
+                if($request->filter == "high") {
+                    $products->orderByDesc('price');
+                }
+                if($request->filter == "name") {
+                    $products->orderBy('title');
+                }
+                if($request->filter == "low") {
+                    $products->orderBy('price');
+                }
+                if($request->filter == "new") {
+                    $products->orderByDesc('created_at');
+                }
+            }
+            $products = $products->get();
+
+        return view('frontend.product.productrender',compact('products'))->render();
+    }
+
     public function getproductbyCategory($slug, Request $request)
     {
         $category = Category::where('slug',$slug)->first();
         $subcategory = SubCategory::where('id', $category->id)->get();
+        $brands = Brand::get();
         if($request->has('option')){
             if ($request->option == 'name') {
                 $product = Product::where('category_id',$category->id)->orderBy('title','asc')->paginate(15);
@@ -142,7 +206,7 @@ class FrontendController extends Controller
         $products = Product::where('is_featured', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-        return view('frontend.product.productcategory', compact('carts','products','product','category','categories','subcategory','subcategories'));
+        return view('frontend.product.productcategory', compact('carts','brands','products','product','category','categories','subcategory','subcategories'));
     }
 
     public function getproductbySubCategory($slug , Request $request)

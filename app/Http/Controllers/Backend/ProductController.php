@@ -61,6 +61,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'title'      => 'required|max:255',
             'image' => 'required',
+            'stock' => 'required',
         ]);
         if ($product = $this->product->create($request->data())) {
 
@@ -130,6 +131,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'title'      => 'required|max:255',
+            'stock'      => 'required|max:255',
         ]);
         if ($product->update($request->data())) {
             $product->fill([
