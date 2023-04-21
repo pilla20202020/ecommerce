@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Models\Category\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -49,6 +51,7 @@ class CategoryController extends Controller
     {
         //
         if ($category = $this->category->create($request->data())) {
+
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $category);
             }
@@ -95,7 +98,7 @@ class CategoryController extends Controller
         //
         if($category->update($request->data())) {
             $category->fill([
-                'slug' => $request->title,
+                'slug' => Str::slug($request->title),
             ])->save();
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $category);

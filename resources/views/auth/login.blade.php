@@ -42,15 +42,15 @@
                             <input type="password" class="form-control" style="height: 57px" id="password"
                                    name="password" required>
                             <label for="password">Password</label>
-                            <p class="help-block">
+                            {{-- <p class="help-block">
                                 <a href="{{ url('/password/reset') }}" target="_blank">Forgot?</a>
-                            </p>
+                            </p> --}}
                         </div>
                         <br/>
 
                         <div class="form-group row">
                             {{--<div class="form-group row">--}}
-                            <div class="col-md-6 offset-md-4">
+                            {{-- <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember"
                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -59,7 +59,7 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{--</div>--}}
 
 
@@ -70,7 +70,7 @@
                             {{--</label>--}}
                             {{--</div>--}}
                             {{--</div><!--end .col -->--}}
-                            <div class="col-xs-6 text-right">
+                            <div class="col-xs-12 text-center">
                                 <button class="btn btn-primary btn-raised" type="submit" style="background-color: #28A575;
     border-color: #28A575;">Login</button>
                             </div><!--end .col -->

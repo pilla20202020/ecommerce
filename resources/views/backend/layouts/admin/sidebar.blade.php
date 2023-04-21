@@ -30,7 +30,7 @@
 
 
 
-                            <li class="gui-folder expanded">
+                            {{-- <li class="gui-folder expanded">
                                 <a>
                                     <div class="gui-icon"><i class="md md-settings"></i></div>
                                     <span class="title">Admin</span>
@@ -40,7 +40,7 @@
                                     <li><a href="{{ route('role.index') }}"><span class="title">Role</span></a></li>
                                     <li><a href="{{ route('permission.index') }}"><span class="title">Permissions</span></a></li>
                                 </ul><!--end /submenu -->
-                            </li>
+                            </li> --}}
 
 
 						{{-- <li class="gui-folder">

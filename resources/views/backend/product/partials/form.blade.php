@@ -132,6 +132,32 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="is_featured" class="control-label">Featured</label>
+                                                <div class="form-group">
+                                                    <input type="checkbox" id="switch_demo_1" name="is_featured"
+                                                        {{ old('is_featured', isset($product->is_featured) ? $product->is_featured : '')=='1' ? 'checked':'' }} data-switchery/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="is_trending" class="control-label">Trending</label>
+                                                <div class="form-group">
+                                                    <input type="checkbox" id="switch_demo_1" name="is_trending"
+                                                        {{ old('is_trending', isset($product->is_trending) ? $product->is_trending : '')=='1' ? 'checked':'' }} data-switchery/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="status" class="control-label">Best Seller</label>
+                                                <div class="form-group">
+                                                    <input type="checkbox" id="switch_demo_1" name="best_seller"
+                                                        {{ old('best_seller', isset($product->best_seller) ? $product->best_seller : '')=='1' ? 'checked':'' }} data-switchery/>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <ul class="pager wizard">
                                             <li class="previous first"><a class="btn-raised" href="javascript:void(0);">First</a></li>
                                             <li class="previous"><a class="btn-raised" href="javascript:void(0);">Previous</a></li>

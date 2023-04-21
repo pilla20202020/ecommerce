@@ -28,7 +28,7 @@
      <!--slider area end-->
 
       <!--brand newsletter area start-->
-      <div class="brand_area brand_three">
+      {{-- <div class="brand_area brand_three">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--brand area end-->
 
 
@@ -145,18 +145,18 @@
                     <div class="product_tab_btn3">
                         <ul class="nav" role="tablist">
                             <li>
-                                <a class="active" data-toggle="tab" href="#Nailpolish" role="tab" aria-controls="Nailpolish" aria-selected="true">
-                                    Nailpolish
+                                <a class="active" data-toggle="tab" href="#electronics" role="tab" aria-controls="electronics" aria-selected="true">
+                                    Electronics
                                 </a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#Eyes" role="tab" aria-controls="Eyes" aria-selected="false">
-                                    Eyes
+                                <a data-toggle="tab" href="#womens-fashion" role="tab" aria-controls="womens-fashion" aria-selected="false">
+                                    Women's Fashion
                                 </a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#Perfume" role="tab" aria-controls="Perfume" aria-selected="false">
-                                    Perfume
+                                <a data-toggle="tab" href="#mens-fashion" role="tab" aria-controls="mens-fashion" aria-selected="false">
+                                    Men's Fashion
                                 </a>
                             </li>
 
@@ -167,11 +167,11 @@
             </div>
             <div class="product_wrapper product_color3">
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="Nailpolish" role="tabpanel">
+                    <div class="tab-pane fade show active" id="electronics" role="tabpanel">
                         <div class="row product_slick_row4">
                             @foreach($products as $product)
                             @if($product->category)
-                                @if($product->category->slug =='Nails')
+                                @if($product->category->slug =='electronics')
                                     <div class="col-lg-3">
 
                                         <div class="single_product">
@@ -216,10 +216,10 @@
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="Eyes" role="tabpanel">
+                    <div class="tab-pane fade" id="womens-fashion" role="tabpanel">
                         <div class="row product_slick_row4">
                             @foreach($products as $product)
-                            @if($product->category->slug =='eye-liner')
+                            @if($product->category->slug =='womens-fashion')
                                 <div class="col-lg-3">
 
                                     <div class="single_product">
@@ -261,10 +261,11 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="Perfume" role="tabpanel">
+
+                    <div class="tab-pane fade" id="mens-fashion" role="tabpanel">
                         <div class="row product_slick_row4">
                             @foreach($products as $product)
-                            @if($product->category->slug =='perfume')
+                            @if($product->category->slug =='mens-fashion')
                                 <div class="col-lg-3">
 
                                     <div class="single_product">
@@ -393,7 +394,7 @@
 
 
         <!--services img area-->
-    <div class="container">
+    {{-- <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section_title title_style3">
@@ -419,7 +420,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--services img end-->
 
 @stop

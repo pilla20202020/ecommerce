@@ -9,6 +9,7 @@ use App\Models\Brand\Brand;
 use App\Models\Product\Product;
 use App\Models\SubCategory\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -135,7 +136,7 @@ class ProductController extends Controller
         ]);
         if ($product->update($request->data())) {
             $product->fill([
-                'slug' => $request->title,
+                'slug' => Str::slug($request->title),
             ])->save();
             if ($request->hasFile('image')) {
 

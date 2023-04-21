@@ -8,6 +8,8 @@ use App\Http\Requests\Page\StorePage;
 use App\Models\Page\Page;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+
 
 class PageController extends Controller
 {
@@ -92,7 +94,7 @@ class PageController extends Controller
 
         if ($page->update($request->pageFillData())) {
             $page->fill([
-                'slug' => $request->title,
+                'slug' => Str::slug($request->title),
             ])->save();
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $page, 'image');

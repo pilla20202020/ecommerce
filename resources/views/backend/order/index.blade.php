@@ -32,20 +32,24 @@
                     <tbody>
                         @foreach($orders as $key =>$order)
                         <tr>
-                            <td class="text-center pt-2">
-                                <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" name="ordercheckbox" data-checkboxes="mygroup" class="custom-control-input" id="{{$order->id}}" value="{{$order->id}}">
-                                    <label for="{{$order->id}}" class="custom-control-label">&nbsp;</label>
-                                </div>
-                            </td>
+                            @if($order->status != "delivered")
+                                <td class="text-center pt-2">
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" name="ordercheckbox" data-checkboxes="mygroup" class="custom-control-input" id="{{$order->id}}" value="{{$order->id}}">
+                                        <label for="{{$order->id}}" class="custom-control-label">&nbsp;</label>
+                                    </div>
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
                             <td>{{$order->order_number}}</td>
-                            <td>{{$order->customer->name}}</td>
+                            <td>{{ucfirst($order->customer->name)}}</td>
                             <td>{{$order->customer->phone}}</td>
                             <td>Rs.{{$order->total_amount}}</td>
                             <td>{{$order->created_at->format('Y-m-d')}}</td>
                             <td>{{$order->payment_method}}</td>
-                            <td>{{$order->payment_status}}</td>
-                            <td>{{$order->status}}</td>
+                            <td>{{ucfirst($order->payment_status)}}</td>
+                            <td>{{ucfirst($order->status)}}</td>
                             <td><button type="button" class="btn view-items btn-info btn-sm" data-toggle="modal" data-target="#viewItems" data-id="{{$order->id}}">
                                 View
                             </button></td>
@@ -69,11 +73,12 @@
             </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" style="padding: 10px">
                     <div class="form-group col-12">
                         <select  name="payment_status" class="form-control paymentstatus" required>
-                            <option value="paid">Paid</option>
+                            <option value="" disabled selected> -- Update Payment Status --</option>
                             <option value="unpaid">Unpaid</option>
+                            <option value="paid">Paid</option>
                         </select>
 
                         <select  name="status" class="form-control status" required>
@@ -129,6 +134,10 @@
 
 @push('scripts')
 <script>
+
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
     $(document).ready(function() {
         $('.btn-orderstatus').on('click',function() {
             var order = [];

@@ -97,7 +97,7 @@
                     <!--shop wrapper start-->
                     <!--shop toolbar start-->
                     <div class="shop_title">
-                        <h1>{{$category->title}}</h1>
+                        <h1>List All Products</h1>
                     </div>
 
                     <div class="shop_toolbar_wrapper">
@@ -135,7 +135,7 @@
                     </div>
                     <!--shop toolbar end-->
 
-                    <div class="row mb-3 listitems">
+                    <div class="row mb-3 listproducts">
                         @include('Frontend.product.productrender')
                     </div>
 
@@ -218,7 +218,7 @@
                // price: $('.totalpricing').val(),
            },
            success:function(data){
-               $('.listitems').html(data);
+               $('.listproducts').html(data);
                var totalprice = $('.totalpricing').html();
                $('.cart-price').html(totalprice);
 
@@ -275,7 +275,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });
@@ -322,7 +322,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });
@@ -369,7 +369,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });
@@ -416,7 +416,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });
@@ -463,7 +463,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });
@@ -510,7 +510,7 @@
                     filter: filter,
                 },
                 success:function(data){
-                    $('.listitems').html(data);
+                    $('.listproducts').html(data);
                 }
             })
         });

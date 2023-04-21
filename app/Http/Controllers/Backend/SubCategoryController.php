@@ -7,6 +7,8 @@ use App\Http\Requests\SubCategory\SubCategoryRequest;
 use App\Models\Category\Category;
 use App\Models\SubCategory\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class SubCategoryController extends Controller
 {
@@ -54,7 +56,7 @@ class SubCategoryController extends Controller
             'category_id' => 'required'
         ]);
         if ($subcategory = $this->subcategory->create($request->data())) {
-            
+
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $subcategory);
             }
@@ -104,7 +106,7 @@ class SubCategoryController extends Controller
         ]);
         if ($subcategory->update($request->data())) {
             $subcategory->fill([
-                'slug' => $request->title,
+                'slug' => Str::slug($request->title),
             ])->save();
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $subcategory);

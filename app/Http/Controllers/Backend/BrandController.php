@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Brand\BrandRequest;
 use App\Models\Brand\Brand;
+use Illuminate\Support\Str;
+
 
 class BrandController extends Controller
 {
@@ -41,17 +43,17 @@ class BrandController extends Controller
 
     public function edit(Brand $brand)
     {
-       
+
         return view('backend.brand.edit', compact('brand'));
     }
 
     public function update(BrandRequest $request, Brand $brand)
     {
-    
+
         if ($brand->update($request->data())) {
             //dd($request->all());
             $brand->fill([
-                'slug' => $request->title,
+                'slug' => Str::slug($request->title),
             ])->save();
             if ($request->hasFile('image')) {
                 $this->uploadFile($request, $brand);
