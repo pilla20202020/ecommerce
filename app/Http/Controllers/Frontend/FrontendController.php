@@ -284,7 +284,6 @@ class FrontendController extends Controller
         $products = Product::where('is_featured', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-
         return view('frontend.about.about',compact('carts','categories','subcategories','products'));
     }
 

@@ -19,8 +19,7 @@ class SliderController extends Controller
     {
 
 
-        $slides = $this->slider->orderBy('created_at', 'asc')->get();
-
+        $slides = Slider::orderBy('created_at', 'asc')->get();
         return view('backend.slider.index', compact('slides'));
     }
 

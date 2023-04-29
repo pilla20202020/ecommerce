@@ -208,6 +208,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('{id}', 'Backend\DealController@destroy')->name('destroy');
     });
 
+
     Route::group(['as' => 'order.', 'prefix' => 'order'], function () {
 
         Route::get('view-order', 'Frontend\OrderController@viewOrder')->name('view-order');

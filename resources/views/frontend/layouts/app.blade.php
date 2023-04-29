@@ -20,7 +20,7 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }} ">
-    <link rel="stylesheet" href="{{asset('css/range.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/range.css')}}"/>
 
 </head>
 
@@ -30,7 +30,7 @@
 @include('sweetalert::alert')
 
 
-     @yield('content')
+    @yield('content')
 
 
     @include('frontend.layouts.partials.footer')

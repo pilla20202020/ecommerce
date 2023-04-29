@@ -12,7 +12,7 @@
                             <div class="form-group">
                                 <label for="" class="col-form-label pt-0">Title</label>
                                     <div class="">
-                                        <input class="form-control" type="text" required name="title" value="{{ old('title', isset($slider->title) ? $slider->title : '') }}" placeholder="Enter Title">
+                                        <input class="form-control" type="text" required name="title" value="{{ old('title', isset($gallery->title) ? $gallery->title : '') }}" placeholder="Enter Title">
                                     </div>
                                     <span id="textarea1-error" class="text-danger">{{ $errors->first('title') }}</span>
                                     <label for="Name">Title</label>
@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label for="" class="col-form-label pt-0">Caption</label>
                                     <div class="">
-                                        <input class="form-control" type="text"  name="caption" value="{{ old('caption', isset($slider->caption) ? $slider->caption : '') }}" placeholder="Enter Caption">
+                                        <input class="form-control" type="text"  name="caption" value="{{ old('caption', isset($gallery->caption) ? $gallery->caption : '') }}" placeholder="Enter Caption">
                                     </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                              <div class="form-group">
                                 <label for="" class="col-form-label pt-0">Link URL</label>
                                     <div class="">
-                                        <input class="form-control" type="text"  name="link_url" value="{{ old('link_url', isset($slider->link_url) ? $slider->link_url : '') }}" placeholder="Enter Link URL">
+                                        <input class="form-control" type="text"  name="link_url" value="{{ old('link_url', isset($gallery->link_url) ? $gallery->link_url : '') }}" placeholder="Enter Link URL">
                                     </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                                 <label for="" class="col-form-label pt-0">Link Caption</label>
                                     <div class="">
-                                        <input class="form-control" type="text" name="link_caption" value="{{ old('link_caption', isset($slider->link_caption) ? $slider->link_caption : '') }}" placeholder="Enter Link Caption">
+                                        <input class="form-control" type="text" name="link_caption" value="{{ old('link_caption', isset($gallery->link_caption) ? $gallery->link_caption : '') }}" placeholder="Enter Link Caption">
                                     </div>
                          </div>
                         </div>
@@ -56,8 +56,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <label class="text-default-light">Featured Image</label>
-                            @if(isset($slider) && $slider->image)
-                                <input type="file" name="image" class="dropify" data-default-file="{{ asset($slider->thumbnail_path) }}"/>
+                            @if(isset($gallery) && $gallery->image)
+                                <input type="file" name="image" class="dropify" data-default-file="{{ asset($gallery->thumbnail_path) }}"/>
                             @else
                                 <input type="file" name="image" class="dropify"/>
                             @endif
@@ -72,7 +72,7 @@
         <div class="card card-affix affix-4">
             <div class="card-head">
                 <div class="tools">
-                    <a class="btn btn-default btn-ink" href="{{ route('slider.index') }}">
+                    <a class="btn btn-default btn-ink" href="{{ route('gallery.index') }}">
                         <i class="md md-arrow-back"></i>
                         Back
                     </a>

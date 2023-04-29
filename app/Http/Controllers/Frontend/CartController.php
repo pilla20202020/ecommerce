@@ -44,34 +44,98 @@ class CartController extends Controller
         {
             $allproductkeywords[] = $allproduct->keywords;
         }
+        
+        // dd($allproductkeywords, explode(',', $allproductkeywords[0]));
+        foreach($allproductkeywords as $key => $allproductkeyword)
+        {
+            $allkeywords[] = explode(',', $allproductkeywords[$key]);
+        }
+        
+        if (!is_array($allkeywords)) { 
+            return FALSE; 
+        } 
+        $result = array(); 
+        foreach ($allkeywords as $key => $value) { 
+            if (is_array($value)) { 
+            $result = array_merge($result, $value); 
+            } 
+            else { 
+            $result[$key] = $value; 
+            } 
+        } 
+        
         // Vector Space
         $vector1 = $customer_keywords ?? null;
-        $vector2 = $allproductkeywords;
-        $similarity_score =  $this->cosine_similarity($vector1, $vector2);
+        $vector2 = $allproductkeywords ?? null;
+        // dd($vector1, $vector2);
+        foreach($vector2 as $key => $vec2) {
+            // dd($value);
+            $vector2_string = $vec2;
+            $asciiValues_vector2 = [];
+            for ($i = 0; $i < strlen($vector2_string); $i++) {
+                $asciiValues_vector2[] += ord($vector2_string[$i]);
+            }
+        }
+        // dd($vector1);
+        // rsort($asciiValues_vector2);
+        foreach($vector1 as $key => $vec1) {
+            
+            $vector1_string = $vec1;
+            
+            $asciiValues_vector1 = [];
+            for ($i = 0; $i <= $key; $i++) {
+                $asciiValues_vector1[] += ord($vector1_string[$i]);
+            }
+        }
+        rsort($asciiValues_vector1);
+        
+        
+        // dd($asciiValues_vector1, $asciiValues_vector2);
+        if(!empty($asciiValues_vector1)) {
+            foreach($asciiValues_vector1 as $key => $value){
+                if(isset($asciiValues_vector2[$key])){
+                    $similarity_score[] =  $this->cosine_similarity($value, $asciiValues_vector2);
+                }
+            }
+            // dd($similarity_score);
+            rsort($similarity_score);
+        } else {
+            $similarity_score = null;
+        }
+        // dd($similarity_score, $customer_keywords, $customer_recommend_product);
+        // $string = "tshirt,Shirt for men,men's shirt";
+        // $asciiValues = 0;
+        // for ($i = 0; $i < strlen($string); $i++) {
+        //     $asciiValues += ord($string[$i]);
+        // }
 
-        return view('frontend.customer.cart',compact('customer_recommend_product','categories','subcategories','products','carts'));
+        // dd($asciiValues);
+        return view('frontend.customer.cart',compact('customer_recommend_product','categories','subcategories','products','carts','similarity_score'));
     }
 
     // cosine similarity
     public function cosine_similarity($vector1, $vector2) {
-
+        
         $dot_product = 0.0;
         $magnitude1 = 0.0;
         $magnitude2 = 0.0;
-        $vector1 = array(2,3,4);
-        $vector2 = array(1,3,5);
-        foreach($vector1 as $key => $value) {
-            if(isset($vector2[$key])) {
-                $dot_product += ($value * $vector2[$key]);
-            }
-            $magnitude1 += pow($value, 2);
-        }
-
+        $dot_product += ($vector1 * $vector2[0]) ;
+        $magnitude1 += pow($vector1, 2);
+        // $magnitude2 += pow($vector2, 2);
+        // foreach($vector1 as $key => $value) {
+        //     if(isset($vector2[$key])) {
+        //         $dot_product += ($value * $vector2[$key]);
+        //     }
+        //     $magnitude1 += pow($value, 2);
+        // }
+        
         foreach($vector2 as $key => $value) {
             $magnitude2 += pow($value, 2);
         }
-
+        
         $magnitude = sqrt($magnitude1) * sqrt($magnitude2);
+        
+        // dd($dot_product, $magnitude1, $magnitude2, $magnitude);
 
         if($magnitude == 0.0) {
             return 0.0;

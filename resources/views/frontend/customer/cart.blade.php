@@ -116,39 +116,47 @@
                     </div>
                     <div class="product_wrapper product_color3">
                         <div class="row product_slick_column3">
-                            @foreach($customer_recommend_product as $product)
-                                <div class="col-lg-3">
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="{{ route('products.detail', $product['slug']) }}"><img src="{{asset($product['image_path'])}}" alt=""></a>
-                                            <div class="action_links">
-                                                <ul>
-                                                    @if(!empty(Auth::guard('customer')->user()))
-                                                        <li class="add_to_cart"><a href="javascript:;" class="addtocart" data-id="{{$product['id']}}" title="add to cart"><i class="ion-bag"></i></a></li>
-                                                    @else
-                                                        <li class="add_to_cart"><a href="{{route('user-login')}}" title="add to cart"><i class="ion-bag"></i></a></li>
-                                                    @endif
-                                                    <li ><a href="#" class="view-quickview" data-product_id="{{$product['id']}}" id="quickviewproduct" data-toggle="modal" data-target="#productquickview" title="Quick View"><i class="ion-eye"></i></a></li>
-                                                </ul>
+                            <?php $i = 0; ?>
+                            @foreach($customer_recommend_product as $key => $product)
+                                @if($i < 3)
+                                    <div class="col-lg-3">
+                                        <div class="single_product">
+                                            <div class="product_thumb">
+                                                <a class="primary_img" href="{{ route('products.detail', $product['slug']) }}"><img src="{{asset($product['image_path'])}}" alt=""></a>
+                                                <div class="action_links">
+                                                    <ul>
+                                                        @if(!empty(Auth::guard('customer')->user()))
+                                                            <li class="add_to_cart"><a href="javascript:;" class="addtocart" data-id="{{$product['id']}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                        @else
+                                                            <li class="add_to_cart"><a href="{{route('user-login')}}" title="add to cart"><i class="ion-bag"></i></a></li>
+                                                        @endif
+                                                        <li ><a href="#" class="view-quickview" data-product_id="{{$product['id']}}" id="quickviewproduct" data-toggle="modal" data-target="#productquickview" title="Quick View"><i class="ion-eye"></i></a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="product_content">
-                                            <div class="product_name">
-                                                <h4><a href="{{ route('products.detail', $product['slug']) }}">{{$product['title']}}</a></h4>
-                                            </div>
+                                            <div class="product_content">
+                                                <div class="product_name">
+                                                    <h4><a href="{{ route('products.detail', $product['slug']) }}">{{$product['title']}}</a></h4>
+                                                </div>
 
-                                            <div class="price-container">
-                                                <div class="price_box">
-                                                    <span class="current_price">Rs {{$product['price']}}</span>
+                                                <div class="price-container">
+                                                    <div class="price_box">
+                                                        <span class="current_price">Rs {{$product['price']}}</span><br>
+                                                        @if(isset($similarity_score[$i])) 
+                                                            <span class="current_price"> {{$similarity_score[$i]}}</span>
+                                                        @endif
+
+                                                    </div>
 
                                                 </div>
 
                                             </div>
 
                                         </div>
-
                                     </div>
-                                </div>
+                                @endif
+                                <?php $i++ ?>
+                                
                             @endforeach
 
 

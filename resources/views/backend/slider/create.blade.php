@@ -1,12 +1,12 @@
 @extends('backend.layouts.admin.admin')
 
-@section('title', 'Slider')
+@section('title', 'gallery')
 
 @section('content')
 <section>
         <div class="section-body">
-            <form class="form form-validate floating-label" action="{{route('slider.store')}}" method="POST" enctype="multipart/form-data" novalidate>
-            @include('backend.slider.partials.form',['header' => 'Create a slider'])
+            <form class="form form-validate floating-label" action="{{route('gallery.store')}}" method="POST" enctype="multipart/form-data" novalidate>
+            @include('backend.gallery.partials.form',['header' => 'Create a gallery'])
             </form>
         </div>
     </section>
