@@ -114,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product_wrapper product_color3">
+                    <div class="product_wrapper product_color5">
                         <div class="row product_slick_column3">
                             <?php $i = 0; ?>
                             @foreach($customer_product_recommend as $key => $product)

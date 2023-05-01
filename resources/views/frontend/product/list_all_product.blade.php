@@ -218,7 +218,7 @@
                // price: $('.totalpricing').val(),
            },
            success:function(data){
-               $('.listproducts').html(data);
+               $('.listitems').html(data);
                var totalprice = $('.totalpricing').html();
                $('.cart-price').html(totalprice);
 

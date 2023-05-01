@@ -94,6 +94,7 @@ class FrontendController extends Controller
     }
 
     // jaccardIndex
+    // jaccardIndex
     public function findRecommendedProducts($productName, $products, $numProducts = 8) {
         $recommendedProducts = array();
 
@@ -102,7 +103,7 @@ class FrontendController extends Controller
                 if ($customer_keywords != $otherProductName) {
                     $keywords[] = $customer_keywords;
                     $jaccardIndex = $this->jaccardIndex($keywords, $otherProductKeywords);
-                    if ($jaccardIndex > 0) {
+                    if ($jaccardIndex > 0 && $jaccardIndex < 1) {
                       $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
                     }
                 }
@@ -111,8 +112,10 @@ class FrontendController extends Controller
         usort($recommendedProducts, function($a, $b) {
           return $b['jaccardIndex'] <=> $a['jaccardIndex'];
         });
+
         $tempArr = array_unique(array_column($recommendedProducts, 'product'));
         $recommendedProducts = array_intersect_key($recommendedProducts, $tempArr);
+
         return array_slice($recommendedProducts, 0, $numProducts);
     }
 
