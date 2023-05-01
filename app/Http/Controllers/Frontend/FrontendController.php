@@ -49,6 +49,34 @@ class FrontendController extends Controller
             $customer_recommend_product = null;
         }
 
+        $allproducts =  Product::get();
+        foreach($allproducts as $allproduct)
+        {
+            $allproductkeywords[$allproduct->title] = $allproduct->keywords;
+        }
+        foreach($allproductkeywords as $key => $allproductkeyword)
+        {
+            $allkeywords[$key] = explode(',', $allproductkeywords[$key]);
+        }
+
+        if (!is_array($allkeywords)) {
+            return FALSE;
+        }
+
+        // Vector Space
+        $vector1 = $customer_keywords ?? null;
+        $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
+        if(!empty($recommendedProducts)) {
+            $i = 0;
+            foreach ($recommendedProducts as $recommendedProduct) {
+                $customer_product_recommend[$i] = Product::where('title','LIKE','%'.$recommendedProduct['product'].'%')->first();
+                $customer_product_recommend[$i]['jaccardIndex'] = $recommendedProduct['jaccardIndex'];
+                $i++;
+            }
+        } else {
+            $customer_product_recommend = null;
+        }
+
 
 
         $menus = Menu::where('is_published',0)->get();
@@ -62,7 +90,37 @@ class FrontendController extends Controller
         $trainings = Training::where('is_featured', 1)->where('is_published', 1)->get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
-        return view('frontend.home',compact('customer_recommend_product','carts','menus','sliders','brands','categories','subcategories','services','trainings','products','bestsellerproducts'));
+        return view('frontend.home',compact('customer_product_recommend','carts','menus','sliders','brands','categories','subcategories','services','trainings','products','bestsellerproducts'));
+    }
+
+    // jaccardIndex
+    public function findRecommendedProducts($productName, $products, $numProducts = 8) {
+        $recommendedProducts = array();
+
+        foreach ($products as $otherProductName => $otherProductKeywords) {
+            foreach($productName as $customer_keywords){
+                if ($customer_keywords != $otherProductName) {
+                    $keywords[] = $customer_keywords;
+                    $jaccardIndex = $this->jaccardIndex($keywords, $otherProductKeywords);
+                    if ($jaccardIndex > 0) {
+                      $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
+                    }
+                }
+            }
+        }
+        usort($recommendedProducts, function($a, $b) {
+          return $b['jaccardIndex'] <=> $a['jaccardIndex'];
+        });
+        $tempArr = array_unique(array_column($recommendedProducts, 'product'));
+        $recommendedProducts = array_intersect_key($recommendedProducts, $tempArr);
+        return array_slice($recommendedProducts, 0, $numProducts);
+    }
+
+
+    public function jaccardIndex($set1, $set2) {
+        $intersection = count(array_intersect($set1, $set2));
+        $union = count(array_unique(array_merge($set1, $set2)));
+        return $intersection / $union;
     }
 
 

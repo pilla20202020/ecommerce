@@ -103,7 +103,7 @@
         </form>
 
         <!--recommended product area start-->
-        @if(isset($customer_recommend_product))
+        @if(isset($customer_product_recommend))
 
             <section class="product_area product_three mb-40">
                 <div class="container">
@@ -117,7 +117,7 @@
                     <div class="product_wrapper product_color3">
                         <div class="row product_slick_column3">
                             <?php $i = 0; ?>
-                            @foreach($customer_recommend_product as $key => $product)
+                            @foreach($customer_product_recommend as $key => $product)
                                 @if($i < 3)
                                     <div class="col-lg-3">
                                         <div class="single_product">
@@ -142,9 +142,8 @@
                                                 <div class="price-container">
                                                     <div class="price_box">
                                                         <span class="current_price">Rs {{$product['price']}}</span><br>
-                                                        @if(isset($similarity_score[$i])) 
-                                                            <span class="current_price"> {{$similarity_score[$i]}}</span>
-                                                        @endif
+                                                        <span class="current_price"> Jaccard Similarity Index: {{$product['jaccardIndex']}}</span>
+
 
                                                     </div>
 
@@ -156,7 +155,7 @@
                                     </div>
                                 @endif
                                 <?php $i++ ?>
-                                
+
                             @endforeach
 
 
