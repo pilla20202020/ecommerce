@@ -116,13 +116,13 @@
                         </div>
                         @endif
 
-                        <div class="shop_toolbar t_bottom">
+                        {{-- <div class="shop_toolbar t_bottom">
                             <div class="pagination">
                                 <ul>
                                    {{$product->links()}}
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <!--shop toolbar end-->
                         <!--shop wrapper end-->
                     </div>

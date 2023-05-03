@@ -34,6 +34,7 @@ class CartController extends Controller
                 $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
             } else {
                 $customer_recommend_product = null;
+                $customer_keywords = null;
             }
         } else {
             $customer_recommend_product = null;
@@ -56,55 +57,48 @@ class CartController extends Controller
         // Vector Space
         $vector1 = $customer_keywords ?? null;
         $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
-
         if(!empty($recommendedProducts)) {
             $i = 0;
             foreach ($recommendedProducts as $recommendedProduct) {
-                $customer_product_recommend[$i] = Product::where('title','LIKE','%'.$recommendedProduct['product'].'%')->first();
+                $customer_product_recommend[$i] = Product::where('title',$recommendedProduct['product'])->first();
                 $customer_product_recommend[$i]['jaccardIndex'] = $recommendedProduct['jaccardIndex'];
                 $i++;
             }
         } else {
             $customer_product_recommend = null;
         }
-
-
-
-
         return view('frontend.customer.cart',compact('customer_recommend_product','categories','subcategories','products','carts','customer_product_recommend'));
     }
 
     // jaccardIndex
     public function findRecommendedProducts($productName, $products, $numProducts = 8) {
         $recommendedProducts = array();
-
         foreach ($products as $otherProductName => $otherProductKeywords) {
-            foreach($productName as $customer_keywords){
-                if ($customer_keywords != $otherProductName) {
-                    $keywords[] = $customer_keywords;
-                    $jaccardIndex = $this->jaccardIndex($keywords, $otherProductKeywords);
-                    if ($jaccardIndex > 0 && $jaccardIndex < 1) {
-                      $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
+            if(isset($productName )) {
+                foreach($productName as $customer_keywords){
+                    if ($customer_keywords != $otherProductName) {
+                        $keywords[] = $customer_keywords;
+                        $jaccardIndex = $this->jaccardIndex($productName, $otherProductKeywords);
+                        if ($jaccardIndex > 0 && $jaccardIndex < 1) {
+                          $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
+                        }
                     }
                 }
             }
+
         }
         usort($recommendedProducts, function($a, $b) {
           return $b['jaccardIndex'] <=> $a['jaccardIndex'];
         });
-
         $tempArr = array_unique(array_column($recommendedProducts, 'product'));
         $recommendedProducts = array_intersect_key($recommendedProducts, $tempArr);
-
         return array_slice($recommendedProducts, 0, $numProducts);
     }
-
-
     public function jaccardIndex($set1, $set2) {
+        
         $intersection = count(array_intersect($set1, $set2));
         $union = count(array_unique(array_merge($set1, $set2)));
         $indexValue = $intersection / $union;
-
         return $indexValue;
     }
 

@@ -47,7 +47,9 @@ class FrontendController extends Controller
             }
         } else {
             $customer_recommend_product = null;
+            $customer_keywords = null;
         }
+
 
         $allproducts =  Product::get();
         foreach($allproducts as $allproduct)
@@ -65,6 +67,7 @@ class FrontendController extends Controller
 
         // Vector Space
         $vector1 = $customer_keywords ?? null;
+
         $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
         if(!empty($recommendedProducts)) {
             $i = 0;
@@ -95,27 +98,28 @@ class FrontendController extends Controller
 
     // jaccardIndex
     // jaccardIndex
+    // jaccardIndex
     public function findRecommendedProducts($productName, $products, $numProducts = 8) {
         $recommendedProducts = array();
-
         foreach ($products as $otherProductName => $otherProductKeywords) {
-            foreach($productName as $customer_keywords){
-                if ($customer_keywords != $otherProductName) {
-                    $keywords[] = $customer_keywords;
-                    $jaccardIndex = $this->jaccardIndex($keywords, $otherProductKeywords);
-                    if ($jaccardIndex > 0 && $jaccardIndex < 1) {
-                      $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
+            if(isset($productName )) {
+                foreach($productName as $customer_keywords){
+                    if ($customer_keywords != $otherProductName) {
+                        $keywords[] = $customer_keywords;
+                        $jaccardIndex = $this->jaccardIndex($productName, $otherProductKeywords);
+                        if ($jaccardIndex > 0 && $jaccardIndex < 1) {
+                          $recommendedProducts[] = array('product' => $otherProductName, 'jaccardIndex' => $jaccardIndex);
+                        }
                     }
                 }
             }
+
         }
         usort($recommendedProducts, function($a, $b) {
           return $b['jaccardIndex'] <=> $a['jaccardIndex'];
         });
-
         $tempArr = array_unique(array_column($recommendedProducts, 'product'));
         $recommendedProducts = array_intersect_key($recommendedProducts, $tempArr);
-
         return array_slice($recommendedProducts, 0, $numProducts);
     }
 
@@ -123,7 +127,8 @@ class FrontendController extends Controller
     public function jaccardIndex($set1, $set2) {
         $intersection = count(array_intersect($set1, $set2));
         $union = count(array_unique(array_merge($set1, $set2)));
-        return $intersection / $union;
+        $indexValue = $intersection / $union;
+        return $indexValue;
     }
 
 
@@ -185,22 +190,22 @@ class FrontendController extends Controller
         $brands = Brand::get();
         if($request->has('option')){
             if ($request->option == 'name') {
-                $product = Product::orderBy('title','asc')->paginate(15);
+                $product = Product::orderBy('title','asc')->get();
             }
             elseif($request->option == 'price-low-to-high') {
-                $product = Product::orderBy('price','asc')->paginate(15);
+                $product = Product::orderBy('price','asc')->get();
             }
             elseif ($request->option == 'price-high-to-low') {
-                $product = Product::orderBy('price','desc')->paginate(15);
+                $product = Product::orderBy('price','desc')->get();
 
             }
         }else{
-            $product = Product::paginate(15);
+            $product = Product::get();
         }
 
         $categories = Category::get();
         $subcategories = SubCategory::where('is_published', 1)->get();
-        $products = Product::paginate(15);
+        $products = Product::get();
         $customer_id = Auth::guard('customer')->id();
         $carts = Cart::where('customer_id', $customer_id)->where('is_ordered', 0)->get();
         return view('frontend.product.list_all_product', compact('carts','brands','products','categories','subcategories'));
@@ -249,17 +254,17 @@ class FrontendController extends Controller
         $brands = Brand::get();
         if($request->has('option')){
             if ($request->option == 'name') {
-                $product = Product::where('category_id',$category->id)->orderBy('title','asc')->paginate(15);
+                $product = Product::where('category_id',$category->id)->orderBy('title','asc')->get();
             }
             elseif($request->option == 'price-low-to-high') {
-                $product = Product::where('category_id',$category->id)->orderBy('price','asc')->paginate(15);
+                $product = Product::where('category_id',$category->id)->orderBy('price','asc')->get();
             }
             elseif ($request->option == 'price-high-to-low') {
-                $product = Product::where('category_id',$category->id)->orderBy('price','desc')->paginate(15);
+                $product = Product::where('category_id',$category->id)->orderBy('price','desc')->get();
 
             }
         }else{
-            $product = Product::where('category_id',$category->id)->paginate(15);
+            $product = Product::where('category_id',$category->id)->get();
         }
 
         $categories = Category::get();
@@ -279,17 +284,17 @@ class FrontendController extends Controller
 
         if($request->has('option')){
             if ($request->option == 'name') {
-                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('title','asc')->paginate(15);
+                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('title','asc')->get();
             }
             elseif($request->option == 'price-low-to-high') {
-                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('price','asc')->paginate(15);
+                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('price','asc')->get();
             }
             elseif ($request->option == 'price-high-to-low') {
-                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('price','desc')->paginate(15);
+                $product = Product::where('subcategory_id',$subcategory->id)->orderBy('price','desc')->get();
 
             }
         }else{
-            $product = Product::where('subcategory_id',$subcategory->id)->paginate(15);
+            $product = Product::where('subcategory_id',$subcategory->id)->get();
         }
 
 

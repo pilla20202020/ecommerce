@@ -79,14 +79,14 @@
                             @endforeach
                         </div>
 
-                        <div class="widget_list">
+                        {{-- <div class="widget_list">
                             <h2>Stocks</h2>
                             <input type="radio" id="instock" name="stock" value="in_stock">
                             <label for="instock">In stock</label><br>
                             <input type="radio" id="outoffstock" name="stock" value="out_of_stock">
                             <label for="outoffstock">Out off Stock</label><br>
                             <hr>
-                        </div>
+                        </div> --}}
                         {{-- <button class="btn btn-sm btn-info btn-clearfilter justify-content-center">Clear Filter</button> --}}
 
 
@@ -181,13 +181,13 @@
                     </div>
                     @endif --}}
 
-                    <div class="shop_toolbar t_bottom">
+                    {{-- <div class="shop_toolbar t_bottom">
                         <div class="pagination">
                             <ul>
                                 {{$products->links()}}
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                     <!--shop toolbar end-->
                     <!--shop wrapper end-->
                 </div>
