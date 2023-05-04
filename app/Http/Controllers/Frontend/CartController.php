@@ -56,7 +56,9 @@ class CartController extends Controller
 
         // Vector Space
         $vector1 = $customer_keywords ?? null;
+        dd($vector1);
         $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
+        dd($recommendedProducts);
         if(!empty($recommendedProducts)) {
             $i = 0;
             foreach ($recommendedProducts as $recommendedProduct) {
@@ -95,7 +97,7 @@ class CartController extends Controller
         return array_slice($recommendedProducts, 0, $numProducts);
     }
     public function jaccardIndex($set1, $set2) {
-        
+
         $intersection = count(array_intersect($set1, $set2));
         $union = count(array_unique(array_merge($set1, $set2)));
         $indexValue = $intersection / $union;
@@ -217,50 +219,52 @@ class CartController extends Controller
             $total_amount = $total;
 
             $customer = Customer::where('id',Auth::guard('customer')->id())->first();
-            if($customer) {
-                $customer_keywords = explode(',', $customer->keywords);
-                if($customer_keywords[0] != "") {
-                    $customer_keywords = array_reverse($customer_keywords);
-                    foreach($customer_keywords as $key => $keyword)
-                    {
-                        $recommend_product[$key] = Product::where('keywords','LIKE','%'.$keyword.'%')->get()->toArray();
-                    }
-                    $singleArrayForCategory = array_reduce($recommend_product, 'array_merge', array());
-                    $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
-                } else {
-                    $customer_recommend_product = null;
+        if($customer) {
+            $customer_keywords = explode(',', $customer->keywords);
+            if($customer_keywords[0] != "") {
+                $customer_keywords = array_reverse($customer_keywords);
+                foreach($customer_keywords as $key => $keyword)
+                {
+                    $recommend_product[$key] = Product::where('keywords','LIKE','%'.$keyword.'%')->get()->toArray();
                 }
+                $singleArrayForCategory = array_reduce($recommend_product, 'array_merge', array());
+                $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
             } else {
                 $customer_recommend_product = null;
+                $customer_keywords = null;
             }
+        } else {
+            $customer_recommend_product = null;
+        }
 
-            $allproducts =  Product::get();
-            foreach($allproducts as $allproduct)
-            {
-                $allproductkeywords[$allproduct->title] = $allproduct->keywords;
-            }
-            foreach($allproductkeywords as $key => $allproductkeyword)
-            {
-                $allkeywords[$key] = explode(',', $allproductkeywords[$key]);
-            }
+        $allproducts =  Product::get();
+        foreach($allproducts as $allproduct)
+        {
+            $allproductkeywords[$allproduct->title] = $allproduct->keywords;
+        }
+        foreach($allproductkeywords as $key => $allproductkeyword)
+        {
+            $allkeywords[$key] = explode(',', $allproductkeywords[$key]);
+        }
 
-            if (!is_array($allkeywords)) {
-                return FALSE;
-            }
+        if (!is_array($allkeywords)) {
+            return FALSE;
+        }
 
-            // Vector Space
-            $vector1 = $customer_keywords ?? null;
-            $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
-            if(!empty($recommendedProducts)) {
-                $i = 0;
-                foreach ($recommendedProducts as $recommendedProduct) {
-                    $customer_product_recommend[$i] = Product::where('title','LIKE','%'.$recommendedProduct['product'].'%')->first();
-                    $customer_product_recommend[$i]['jaccardIndex'] = $recommendedProduct['jaccardIndex'];
-                    $i++;
-                }
-            } else {
-                $customer_product_recommend = null;
+        // Vector Space
+        $vector1 = $customer_keywords ?? null;
+
+        $recommendedProducts = $this->findRecommendedProducts($vector1, $allkeywords);
+        if(!empty($recommendedProducts)) {
+            $i = 0;
+            foreach ($recommendedProducts as $recommendedProduct) {
+                $customer_product_recommend[$i] = Product::where('title','LIKE','%'.$recommendedProduct['product'].'%')->first();
+                $customer_product_recommend[$i]['jaccardIndex'] = $recommendedProduct['jaccardIndex'];
+                $i++;
             }
+        } else {
+            $customer_product_recommend = null;
+        }
 
 
             return view('frontend.customer.checkout',compact('customer_product_recommend','categories','subcategories','products','carts','total','total_amount'));

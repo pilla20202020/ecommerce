@@ -190,7 +190,6 @@
 
                                 <!--mini cart-->
                                   <div class="mini_cart">
-                                    {{dd('here')}}
                                     @if((isset($carts)))
                                     @foreach($carts as $cart)
                                         <div class="cart_item">

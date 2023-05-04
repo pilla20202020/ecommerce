@@ -44,12 +44,11 @@ class FrontendController extends Controller
                 $customer_recommend_product = array_map("unserialize", array_unique(array_map("serialize", $singleArrayForCategory)));
             } else {
                 $customer_recommend_product = null;
+                $customer_keywords = null;
             }
         } else {
             $customer_recommend_product = null;
-            $customer_keywords = null;
         }
-
 
         $allproducts =  Product::get();
         foreach($allproducts as $allproduct)
@@ -79,9 +78,6 @@ class FrontendController extends Controller
         } else {
             $customer_product_recommend = null;
         }
-
-
-
         $menus = Menu::where('is_published',0)->get();
         $sliders = Slider::where('is_published',0)->get();
         $brands = Brand::where('is_featured', 1)->where('is_published', 1)->get();
@@ -96,8 +92,6 @@ class FrontendController extends Controller
         return view('frontend.home',compact('customer_product_recommend','carts','menus','sliders','brands','categories','subcategories','services','trainings','products','bestsellerproducts'));
     }
 
-    // jaccardIndex
-    // jaccardIndex
     // jaccardIndex
     public function findRecommendedProducts($productName, $products, $numProducts = 8) {
         $recommendedProducts = array();
@@ -122,9 +116,8 @@ class FrontendController extends Controller
         $recommendedProducts = array_intersect_key($recommendedProducts, $tempArr);
         return array_slice($recommendedProducts, 0, $numProducts);
     }
-
-
     public function jaccardIndex($set1, $set2) {
+
         $intersection = count(array_intersect($set1, $set2));
         $union = count(array_unique(array_merge($set1, $set2)));
         $indexValue = $intersection / $union;
