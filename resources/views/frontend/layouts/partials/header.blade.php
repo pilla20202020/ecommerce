@@ -73,11 +73,8 @@
                                 </div>
                             @endif
                             <div class="mini_cart_wrapper mini_cart_three">
-
                                 <span class="cart-price">Rs {{ number_format($carts->sum('amount')) }}</span>
                                  <a href="javascript:void(0)">
-
-
                                      <i class="ion-bag">
                                     </i>
                                         <input type="hidden" name="quantity" id="quantity" value="{{$carts->sum('quantity')}}">
@@ -193,6 +190,7 @@
 
                                 <!--mini cart-->
                                   <div class="mini_cart">
+                                    {{dd('here')}}
                                     @if((isset($carts)))
                                     @foreach($carts as $cart)
                                         <div class="cart_item">

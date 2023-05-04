@@ -1,4 +1,4 @@
-@extends ('frontend.layouts.app')
+@extends('frontend.layouts.app')
 @section('content')
 <section class="page-title-light breadcrumb_section parallax_bg overlay_bg_50" data-parallax-bg-image="assets/images/about_bg.jpg">
     <div class="container">
@@ -24,7 +24,7 @@
     <section>
         <div class="container">
             <div class="row">
-                
+
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="single_event">
                         @if($page->image)

@@ -393,7 +393,7 @@ class FrontendController extends Controller
             if ($page) {
                 $pages = Page::whereIsPublished(1)->whereIsPrimary(0)->whereNotIn('id', [$page->id])->take(10)->inRandomOrder()->get();
                 if ($pages) {
-                    return view('frontend.page', compact('page', 'pages','categories','subcategories','products'));
+                    return view('frontend.page', compact('page', 'pages','categories','subcategories','products','carts'));
                 }
             } else {
                 return view('frontend.errors.404',compact('carts','categories','subcategories','products'));

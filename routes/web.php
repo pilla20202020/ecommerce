@@ -266,7 +266,6 @@ Route::get('all-products/{id}', 'Frontend\FrontendController@getproductbySubCate
 Route::post('contact', 'Frontend\FrontendController@sendcontact')->name('send-contact');
 Route::get('contact', 'Frontend\FrontendController@contact')->name('contact');
 
-
 Route::get('/search/', 'Frontend\FrontendController@searchResult')->name('search');
 
 Route::get('{page}', 'Frontend\FrontendController@page')->name('page.detail');

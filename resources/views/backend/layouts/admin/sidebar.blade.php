@@ -51,18 +51,25 @@
 
 						</li> --}}
 
-                        <li class="gui-folder">
+                        {{-- <li class="gui-folder">
 							<a href="{{ route('page.index') }}">
 								<div class="gui-icon"><i class="md md-pages"></i></div>
 								<span class="title">Pages</span>
 							</a>
-						</li>
+						</li> --}}
 
 
 						<li class="gui-folder">
 							<a href="{{ route('slider.index') }}" >
 								<div class="gui-icon"><i class="md md-image"></i></div>
 								<span class="title">Sliders</span>
+							</a>
+						</li>
+
+                        <li class="gui-folder">
+							<a href="{{ route('brand.index') }}">
+								<div class="gui-icon"><i class="md md-attach-money"></i></div>
+								<span class="title">Brand</span>
 							</a>
 						</li>
 
@@ -80,12 +87,7 @@
 							</a>
 						</li>
 
-						<li class="gui-folder">
-							<a href="{{ route('brand.index') }}">
-								<div class="gui-icon"><i class="md md-attach-money"></i></div>
-								<span class="title">Brand</span>
-							</a>
-						</li>
+
 
                         <li class="gui-folder">
 							<a href="{{ route('product.index') }}">
